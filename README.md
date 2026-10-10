@@ -14,6 +14,8 @@ npm run dev
 
 Open `http://localhost:3000`. The development server can also be reached from the local network.
 
+The alternative design study is available at `http://localhost:3000/design-study/`. It explores a staggered project gallery, always-visible experience chapters, color changes between sections, scroll reveals, and pointer interactions. Its concept bar links back to the current homepage for comparison.
+
 ## Verify and build
 
 ```powershell

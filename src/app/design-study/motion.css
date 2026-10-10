@@ -1,0 +1,60 @@
+/* Scoped progressive enhancement. Content remains visible without JavaScript. */
+[data-direction-root] [data-motion-reveal] {
+  opacity: 1;
+  translate: 0 var(--parallax-y, 0px);
+}
+
+[data-direction-root].direction-motion-ready [data-motion-reveal] {
+  transition:
+    opacity 650ms cubic-bezier(.22, 1, .36, 1) var(--reveal-delay, 0ms),
+    translate 650ms cubic-bezier(.22, 1, .36, 1) var(--reveal-delay, 0ms);
+}
+
+[data-direction-root].direction-motion-ready .direction-reveal-pending {
+  opacity: 0;
+  translate: 0 calc(20px + var(--parallax-y, 0px));
+}
+
+[data-direction-root].direction-motion-ready .direction-reveal-pending:focus-within {
+  opacity: 1;
+  translate: 0 var(--parallax-y, 0px);
+  transition: none;
+}
+
+/* Use a separate wrapper for parallax when a child also has a reveal or tilt. */
+[data-direction-root] [data-motion-parallax] {
+  translate: 0 var(--parallax-y, 0px);
+}
+
+[data-direction-root] [data-motion-tilt] {
+  transform: perspective(1000px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+  transform-origin: center;
+}
+
+[data-direction-root] [data-magnetic-content] {
+  display: inline-flex;
+  transform: translate3d(var(--magnetic-x, 0px), var(--magnetic-y, 0px), 0);
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  [data-direction-root] [data-motion-tilt],
+  [data-direction-root] [data-magnetic-content] {
+    transition: transform 200ms cubic-bezier(.22, 1, .36, 1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-direction-root] [data-motion-reveal],
+  [data-direction-root].direction-motion-ready .direction-reveal-pending,
+  [data-direction-root] [data-motion-parallax] {
+    opacity: 1;
+    translate: none;
+    transition: none;
+  }
+
+  [data-direction-root] [data-motion-tilt],
+  [data-direction-root] [data-magnetic-content] {
+    transform: none;
+    transition: none;
+  }
+}
