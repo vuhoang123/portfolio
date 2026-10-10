@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import Link from "next/link";
+import { Pause, Play } from "lucide-react";
 import {
   Component,
   type CSSProperties,
@@ -157,18 +158,30 @@ function browserSupportsWebGL() {
 }
 
 export default function HeroExperience() {
+  const experience = useRef<HTMLDivElement>(null);
   const stage = useRef<HTMLDivElement>(null);
   const manualProgress = useRef(false);
   const [progress, setProgress] = useState(0);
   const [reducedMotion, setReducedMotion] = useState(true);
   const [webGL, setWebGL] = useState<boolean | null>(null);
   const [sceneFailed, setSceneFailed] = useState(false);
+  const [motionEnabled, setMotionEnabled] = useState(true);
+  const [heroVisible, setHeroVisible] = useState(false);
+  const [documentVisible, setDocumentVisible] = useState(true);
   const sceneId = useId();
   const captionId = `${sceneId}-caption`;
   const scrubberId = `${sceneId}-scrubber`;
   const activeChapter = progress >= 0.8 ? 2 : progress >= 0.25 ? 1 : 0;
   const currentChapter = chapters[activeChapter];
   const percentage = Math.round(progress * 100);
+  const interactiveScene = webGL === true && !sceneFailed;
+  const animationEnabled =
+    interactiveScene && motionEnabled && !reducedMotion && heroVisible && documentVisible;
+  const motionState = reducedMotion
+    ? "reduced"
+    : animationEnabled
+      ? "playing"
+      : "paused";
   const selectProgress = (next: number) => {
     manualProgress.current = true;
     setProgress(next);
@@ -181,6 +194,30 @@ export default function HeroExperience() {
     updatePreference();
     preference.addEventListener("change", updatePreference);
     return () => preference.removeEventListener("change", updatePreference);
+  }, []);
+
+  useEffect(() => {
+    const updateVisibility = () =>
+      setDocumentVisible(document.visibilityState === "visible");
+    updateVisibility();
+    document.addEventListener("visibilitychange", updateVisibility);
+
+    const element = experience.current;
+    const observer =
+      element && "IntersectionObserver" in window
+        ? new IntersectionObserver(
+            ([entry]) => setHeroVisible(entry.isIntersecting),
+            { threshold: 0 },
+          )
+        : null;
+
+    if (observer && element) observer.observe(element);
+    else setHeroVisible(true);
+
+    return () => {
+      observer?.disconnect();
+      document.removeEventListener("visibilitychange", updateVisibility);
+    };
   }, []);
 
   useEffect(() => {
@@ -262,19 +299,43 @@ export default function HeroExperience() {
   return (
     <div
       className="hero-experience"
+      ref={experience}
       data-chapter={currentChapter.label.toLowerCase()}
+      data-motion={motionState}
       style={{ "--scene-progress": progress } as CSSProperties}
     >
       <div className="scene-header">
         <span className="scene-eyebrow">Inside the web / 3 layers</span>
-        <span className="scene-status">
-          <i aria-hidden="true" />
-          {webGL === null
-            ? "Preparing preview"
-            : webGL === false || sceneFailed
-              ? "Concept preview"
-              : "Interactive concept"}
-        </span>
+        <div className="scene-header-actions">
+          <span className="scene-status">
+            <i aria-hidden="true" />
+            {webGL === null
+              ? "Preparing preview"
+              : !interactiveScene
+                ? "Concept preview"
+                : reducedMotion
+                  ? "Reduced motion"
+                  : !motionEnabled
+                    ? "Motion paused"
+                    : "Motion on"}
+          </span>
+          <button
+            type="button"
+            className="scene-motion-toggle"
+            aria-label={reducedMotion ? "Animation disabled by reduced motion preference" : motionEnabled ? "Pause animation" : "Resume animation"}
+            aria-controls={sceneId}
+            disabled={reducedMotion || !interactiveScene}
+            title={reducedMotion ? "Animation follows your reduced motion preference" : undefined}
+            onClick={() => setMotionEnabled((enabled) => !enabled)}
+          >
+            {motionEnabled && !reducedMotion ? (
+              <Pause size={14} aria-hidden="true" />
+            ) : (
+              <Play size={14} aria-hidden="true" />
+            )}
+            <span>{motionEnabled && !reducedMotion ? "Pause animation" : "Resume animation"}</span>
+          </button>
+        </div>
       </div>
       <div
         className="scene-stage"
@@ -292,7 +353,12 @@ export default function HeroExperience() {
               fallback={<SceneFallback />}
               onError={() => setSceneFailed(true)}
             >
-              <LayerScene progress={progress} reducedMotion={reducedMotion} />
+              <LayerScene
+                progress={progress}
+                reducedMotion={reducedMotion}
+                animationEnabled={animationEnabled}
+                onSelectLayer={(index: 0 | 1 | 2) => selectProgress(chapters[index].progress)}
+              />
             </SceneErrorBoundary>
           ) : (
             <SceneFallback loading={webGL === null} />
@@ -310,6 +376,18 @@ export default function HeroExperience() {
         ))}
         <span className="scene-axis" aria-hidden="true">
           X<br />Y<br />Z
+        </span>
+        <span className="scene-interaction-hint" aria-hidden="true">
+          {reducedMotion && interactiveScene ? (
+            "Reduced motion · Select a layer"
+          ) : interactiveScene ? (
+            <>
+              <span className="scene-hint-pointer">{motionEnabled ? "Move to tilt · Click a layer" : "Motion paused · Click a layer"}</span>
+              <span className="scene-hint-touch">{motionEnabled ? "Tap a layer to explore" : "Motion paused · Tap a layer"}</span>
+            </>
+          ) : (
+            "Use the controls to explore"
+          )}
         </span>
       </div>
       <div

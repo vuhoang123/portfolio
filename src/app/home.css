@@ -19,21 +19,30 @@
 .hero-specialties i { width: 3px; height: 3px; border-radius: 50%; background: var(--blue); }
 .hero-footnote { border-top: 1px solid var(--line); margin-top: 22px; padding-block: 19px 25px; }
 .hero-experience { min-width: 0; background: transparent; border: 0; border-radius: 0; overflow: hidden; animation: hero-enter 1s .1s both; }
-.scene-header { top: 15px; left: 25px; right: 5px; align-items: start; }
+.scene-header { top: 15px; left: 25px; right: 5px; align-items: center; gap: 16px; z-index: 3; }
 .scene-stage-title { display: block; margin-top: 8px; font-size: 20px; font-weight: 550; letter-spacing: -.055em; }
-.scene-eyebrow { color: var(--muted); font-size: 8px; letter-spacing: .1em; }
-.scene-status { font-size: 8px; padding-top: 2px; }
-.scene-stage { height: 520px; }
-.scene-stage:before { content: ""; position: absolute; inset: 30px -10px -5px; background: radial-gradient(ellipse at 65% 54%, #2858ff18, #2858ff04 48%, transparent 70%); pointer-events: none; }
+.scene-eyebrow { color: var(--muted); font-size: 9px; letter-spacing: .08em; }
+.scene-header-actions { display: flex; align-items: center; gap: 14px; }
+.scene-status { font-size: 9px; padding-top: 0; white-space: nowrap; }
+.scene-status i { background: #7a8075; }
+.hero-experience[data-motion="playing"] .scene-status i { background: var(--blue); box-shadow: 0 0 0 3px #2858ff14; animation: scene-motion-pulse 2.4s ease-in-out infinite; }
+.scene-motion-toggle { display: inline-flex; align-items: center; justify-content: center; gap: 7px; min-height: 36px; padding: 8px 11px; border: 1px solid #cfd3dc; border-radius: 5px; background: #f5f4efda; color: var(--ink); font: 10px var(--mono); pointer-events: auto; transition: border-color .2s, background .2s; white-space: nowrap; }
+.scene-motion-toggle:hover:not(:disabled) { background: #e7eaff; border-color: #8c9ce8; }
+.scene-motion-toggle:disabled { cursor: default; color: var(--muted); opacity: .65; }
+.scene-motion-toggle:focus-visible { outline: 2px solid var(--blue); outline-offset: 4px; }
+.scene-stage { height: 600px; }
+.scene-stage:before { content: ""; position: absolute; inset: 30px -10px -5px; background: radial-gradient(ellipse at 61% 52%, #2858ff20, #2858ff06 50%, transparent 74%); pointer-events: none; }
 .scene-grid { background-size: 38px 38px; opacity: .55; mask-image: radial-gradient(ellipse at center, #000 5%, transparent 69%); }
-.scene-canvas { inset: 60px -4% 0; }
+.scene-canvas { inset: 50px -7% 32px; }
 .scene-layer-label { color: #747d90; font-size: 8px; display: flex; align-items: center; gap: 8px; transition: color .2s; }
 .scene-layer-label:before { content: ""; width: 19px; height: 1px; background: currentColor; }
 .scene-layer-label.is-active { color: var(--blue); }
-.scene-layer-label--ui { top: 24%; left: 3%; }
+.scene-layer-label--ui { top: 23%; left: 1%; }
 .scene-layer-label--admin { right: 0; top: 56%; }
-.scene-layer-label--data { bottom: 11%; left: 8%; }
-.scene-axis { left: 18px; bottom: 28px; }
+.scene-layer-label--data { bottom: 16%; left: 8%; }
+.scene-axis { left: 18px; bottom: 56px; }
+.scene-interaction-hint { position: absolute; left: 50%; bottom: 18px; transform: translateX(-50%); z-index: 2; padding: 7px 10px; color: #626b7c; font: 10px var(--mono); letter-spacing: .015em; white-space: nowrap; background: #f5f4efcc; border: 1px solid #d7dce380; border-radius: 30px; pointer-events: none; }
+.scene-hint-touch { display: none; }
 .scene-controls { margin: 0 0 0 20px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; border: 1px solid #cfd3dc; border-radius: 7px; overflow: hidden; }
 .scene-control { position: relative; border: 0; border-right: 1px solid #cfd3dc; border-radius: 0; padding: 14px 12px; text-align: left; gap: 9px; background: #ffffff40; }
 .scene-control:last-child { border-right: 0; }
@@ -74,14 +83,18 @@
 .stack-strip-inner i { font-style: normal; color: var(--blue); font-size: 18px; }
 .stack-strip-label { font: 9px var(--mono); max-width: 140px; line-height: 1.7; letter-spacing: .07em; color: var(--muted); }
 @keyframes hero-enter { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes scene-motion-pulse { 0%, 100% { box-shadow: 0 0 0 3px #2858ff14; } 50% { box-shadow: 0 0 0 5px #2858ff08; } }
 @media (max-width: 1100px) {
   .hero-composition { grid-template-columns: .85fr 1.15fr; gap: 0; }
   .hero h1 { font-size: 8vw; }
   .hero-intro p { font-size: 12px; max-width: 295px; }
   .hero-actions { gap: 19px; }
   .hero-primary { padding: 13px 15px; gap: 15px; }
-  .scene-stage { height: 480px; }
-  .scene-canvas { inset: 55px -4% 0; }
+  .scene-stage { height: 500px; }
+  .scene-canvas { inset: 55px -7% 30px; }
+  .scene-header-actions { gap: 10px; }
+  .scene-motion-toggle { padding: 8px; }
+  .scene-motion-toggle span { display: none; }
   .scene-layer-label--ui { left: 0; }
   .scene-controls { margin-left: 12px; }
   .scene-control { padding: 12px 9px; gap: 6px; }
@@ -111,13 +124,16 @@
   .hero-experience { margin: 27px -8px 0; }
   .scene-header { top: 7px; left: 15px; right: 15px; }
   .scene-stage-title { font-size: 18px; margin-top: 5px; }
-  .scene-eyebrow { font-size: 7px; }
-  .scene-status { font-size: 7px; }
-  .scene-stage { height: 380px; }
-  .scene-canvas { inset: 38px -2% 0; }
+  .scene-eyebrow { font-size: 8px; }
+  .scene-status { font-size: 8px; }
+  .scene-stage { height: 440px; }
+  .scene-canvas { inset: 40px -5% 34px; }
+  .scene-header-actions { gap: 10px; }
+  .scene-motion-toggle { min-height: 36px; min-width: 36px; }
+  .scene-interaction-hint { bottom: 14px; font-size: 9px; padding: 7px 9px; }
   .scene-grid { background-size: 30px 30px; }
   .scene-layer-label { display: none; font-size: 7px; }
-  .scene-layer-label.is-active { display: flex; inset: auto 13px 16px auto; background: #f5f4efec; padding: 6px 8px; border-radius: 3px; }
+  .scene-layer-label.is-active { display: flex; inset: auto 13px 53px auto; background: #f5f4efec; padding: 6px 8px; border-radius: 3px; }
   .scene-controls { margin: 0 8px; }
   .scene-control { padding: 13px 9px; }
   .scene-control-copy strong { font-size: 10px; }
@@ -144,7 +160,7 @@
 }
 @media (max-width: 380px) {
   .hero h1 { font-size: 13.5vw; }
-  .scene-stage { height: 355px; }
+  .scene-stage { height: 420px; }
   .scene-status { display: flex; }
   .scene-control { padding: 12px 7px; }
   .stack-strip-inner { gap: 12px; }
@@ -152,5 +168,11 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .hero-copy, .hero-experience { animation: none; }
+  .hero-experience[data-motion="playing"] .scene-status i { animation: none; }
+  .scene-motion-toggle { transition: none; }
   .hero-primary:hover { transform: none; }
+}
+@media (pointer: coarse) {
+  .scene-hint-pointer { display: none; }
+  .scene-hint-touch { display: inline; }
 }
