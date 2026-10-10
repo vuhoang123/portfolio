@@ -1,0 +1,50 @@
+/* Shared studio chrome; the approved visual foundation lives in studio.css. */
+.studio-chrome-header { position: relative; z-index: 20; }
+.studio-chrome-header :is(a, button):focus-visible,
+.studio-chrome-contact a:focus-visible,
+.studio-chrome-skip:focus-visible { outline: 2px solid #2858ff; outline-offset: 6px; }
+.studio-chrome-header .studio-menu-toggle,
+.studio-chrome-header .studio-mobile-nav { display: none; }
+.studio-chrome-header .studio-chrome-contact-button { white-space: nowrap; }
+.studio-chrome-contact .direction-email { max-width: 100%; }
+
+@media (max-width: 760px) {
+  .studio-chrome-header { gap: 12px; }
+  .studio-chrome-header .studio-desktop-nav { display: none; }
+  .studio-chrome-header .studio-chrome-contact-button { display: flex; align-items: center; min-height: 44px; margin-left: auto; }
+  .studio-chrome-header .studio-menu-toggle {
+    display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+    min-height: 44px; padding: 10px 12px; border: 1px solid #cdd2c7;
+    border-radius: 30px; color: #191d19; background: transparent;
+    font-size: 12px; line-height: 1; white-space: nowrap;
+    transition: color 220ms, background 220ms, border-color 220ms;
+  }
+  .studio-chrome-header .studio-menu-toggle:is(:hover, [aria-expanded="true"]) {
+    color: white; background: #2858ff; border-color: #2858ff;
+  }
+  .studio-chrome-header .studio-mobile-nav:not([hidden]) {
+    display: grid; position: absolute; top: calc(100% - 6px); inset-inline: 0;
+    margin: 0; gap: 0; padding: 10px 20px; background: #f5f4ef;
+    border: 1px solid #d9ddd2; border-radius: 8px; box-shadow: 0 14px 30px #2736481a;
+  }
+  .studio-chrome-header .studio-mobile-nav a,
+  .studio-chrome-header .studio-mobile-nav a:last-child {
+    display: flex; align-items: center; justify-content: space-between; gap: 20px;
+    min-height: 48px; padding: 13px 0; font-size: 16px;
+  }
+  .studio-chrome-header .studio-mobile-nav a + a { border-top: 1px solid #d9ddd2; }
+  .studio-chrome-header .studio-mobile-nav a::after { content: none; }
+  .studio-chrome-header .studio-mobile-nav a:is(:hover, :focus-visible) { color: #2858ff; }
+}
+
+@media (max-width: 380px) {
+  .studio-chrome-header { gap: 9px; }
+  .studio-chrome-header .studio-menu-toggle { padding-inline: 10px; gap: 5px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .studio-chrome-header *, .studio-chrome-header *::before, .studio-chrome-header *::after,
+  .studio-chrome-contact *, .studio-chrome-contact *::before, .studio-chrome-contact *::after {
+    transition: none !important;
+  }
+}

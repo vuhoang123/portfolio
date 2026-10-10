@@ -9,13 +9,13 @@ export default function DirectionExperience() {
 
   return (
     <section
-      id="journey"
+      id="experience"
       className="direction-experience"
       aria-labelledby="direction-journey-heading"
     >
       <header className="direction-career-header" data-motion-reveal="">
         <div>
-          <p className="direction-career-kicker">Experience / 2022 — now</p>
+          <p className="direction-career-kicker">03 / Experience / 2022 — now</p>
           <h2 id="direction-journey-heading" className="direction-career-heading">
             Built with teams.
           </h2>

@@ -4,7 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowUpRight, Check } from "lucide-react";
-import { SiteFooter, SiteHeader } from "@/components/SiteChrome";
+import DirectionMotion from "@/components/DirectionMotion";
+import { StudioFooter, StudioHeader } from "@/components/StudioChrome";
 import { caseStudies } from "@/lib/case-studies";
 import { getProjectBySlug, projects } from "@/lib/projects";
 
@@ -54,39 +55,80 @@ export default async function WorkPage({ params }: WorkPageProps) {
   const publicHost = new URL(project.externalUrl).hostname;
 
   return (
-    <>
-      <SiteHeader />
-      <main id="main" className="study-main">
+    <div className="direction-page" data-direction-root style={{ "--study-accent": project.accent } as CSSProperties}>
+      <DirectionMotion />
+      <StudioHeader />
+      <main id="main" className="study-main" tabIndex={-1}>
         <div className="study-shell">
-          <Link href="/#work" className="study-back">
-            <ArrowLeft size={18} aria-hidden="true" />
-            All selected work
-          </Link>
+          <div className="study-breadcrumb">
+            <Link href="/#work" className="study-back">
+              <ArrowLeft size={18} aria-hidden="true" />
+              All selected work
+            </Link>
+            <span>{project.number} / 04</span>
+          </div>
 
           <div className="study-opening">
-          <header className="study-intro">
+          <header className="study-intro" data-motion-reveal>
             <div className="study-kicker">
               <span>Selected work / {project.number}</span>
               <span aria-hidden="true">—</span>
               <span>{project.category}</span>
             </div>
             <h1 className="study-title">{project.title}</h1>
-            <p className="study-headline">{project.headline}</p>
             <div className="study-intro-bottom">
-              <p className="study-description">{project.description}</p>
-              <a
-                href={project.externalUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="study-visit"
-                aria-label={"View " + project.title + " public website (opens in a new tab)"}
-              >
-                View public website <ArrowUpRight size={20} aria-hidden="true" />
-              </a>
+              <p className="study-headline">{project.headline}</p>
+              <div className="study-intro-actions">
+                <p className="study-description">{project.description}</p>
+                <a
+                  href={project.externalUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="study-visit"
+                  data-magnetic
+                  aria-label={"View " + project.title + " public website (opens in a new tab)"}
+                >
+                  <span data-magnetic-content>
+                    View public website <ArrowUpRight size={20} aria-hidden="true" />
+                  </span>
+                </a>
+              </div>
             </div>
           </header>
 
-          <dl className="study-meta">
+          <figure className="study-preview">
+            <div className="study-preview-stage" data-motion-tilt>
+              <div className="study-preview-glow" aria-hidden="true" />
+              <div className="study-preview-stage-label" aria-hidden="true">
+                <span>{project.slug === "valqua" ? "Product introduction" : "Public website"}</span>
+                <span>{project.stack.slice(0, 2).join(" / ")}</span>
+              </div>
+              <div className="study-browser" data-motion-parallax>
+                <div className="study-browser-bar" aria-hidden="true">
+                  <span className="study-browser-dots">
+                    <span className="study-browser-dot" />
+                    <span className="study-browser-dot" />
+                    <span className="study-browser-dot" />
+                  </span>
+                  <span className="study-browser-address">{publicHost}</span>
+                  <span className="study-browser-public">Public preview</span>
+                </div>
+                <Image
+                  src={project.image}
+                  alt={project.imageAlt}
+                  width={1265}
+                  height={712}
+                  sizes="(max-width: 760px) calc(100vw - 72px), (max-width: 1100px) calc(100vw - 136px), 1168px"
+                  preload
+                />
+              </div>
+            </div>
+            <figcaption className="study-preview-caption" data-motion-reveal>
+              <span className="study-preview-label">{project.slug === "valqua" ? "Public product introduction" : "Public website preview"}</span>
+              <p>{project.scopeNote}</p>
+            </figcaption>
+          </figure>
+          <dl className="study-meta" data-motion-reveal>
             <div><dt>My role</dt><dd>{project.role}</dd></div>
             <div><dt>Company</dt><dd>{project.company}</dd></div>
             <div>
@@ -95,29 +137,6 @@ export default async function WorkPage({ params }: WorkPageProps) {
             </div>
             <div><dt>Context</dt><dd>{project.year}</dd></div>
           </dl>
-
-          <figure className="study-preview">
-            <div className="study-browser">
-              <div className="study-browser-bar" aria-hidden="true">
-                <span className="study-browser-dot" />
-                <span className="study-browser-dot" />
-                <span className="study-browser-dot" />
-                <span className="study-browser-address">{publicHost}</span>
-              </div>
-              <Image
-                src={project.image}
-                alt={project.imageAlt}
-                width={1265}
-                height={712}
-                sizes="(max-width: 640px) calc(100vw - 40px), (max-width: 1100px) calc(100vw - 64px), 1280px"
-                preload
-              />
-            </div>
-            <figcaption className="study-preview-caption">
-              <span className="study-preview-label">{project.slug === "valqua" ? "Public product introduction" : "Public website preview"}</span>
-              <p>{project.scopeNote}</p>
-            </figcaption>
-          </figure>
           </div>
 
           <div className="study-layout">
@@ -141,23 +160,27 @@ export default async function WorkPage({ params }: WorkPageProps) {
 
             <div className="study-content">
               <section id="overview" className="study-section" aria-labelledby="overview-heading">
-                <span className="study-section-number">01 / Overview</span>
-                <h2 id="overview-heading">The product & my place in it.</h2>
+                <div className="study-section-heading" data-motion-reveal>
+                  <span className="study-section-number">01 / Overview</span>
+                  <h2 id="overview-heading">The product & my place in it.</h2>
+                </div>
                 <p className="study-overview-copy">{project.context}</p>
                 <dl className="study-summary-grid">
-                  <div className="study-summary-card"><dt>Product</dt><dd>{presentation.product}</dd></div>
-                  <div className="study-summary-card"><dt>People</dt><dd>{presentation.audience}</dd></div>
-                  <div className="study-summary-card"><dt>My focus</dt><dd>{presentation.focus}</dd></div>
+                  <div className="study-summary-card" data-motion-reveal><dt>Product</dt><dd>{presentation.product}</dd></div>
+                  <div className="study-summary-card" data-motion-reveal><dt>People</dt><dd>{presentation.audience}</dd></div>
+                  <div className="study-summary-card" data-motion-reveal><dt>My focus</dt><dd>{presentation.focus}</dd></div>
                 </dl>
               </section>
 
               <section id="scope" className="study-section" aria-labelledby="scope-heading">
-                <span className="study-section-number">02 / My scope</span>
-                <h2 id="scope-heading">What I worked on.</h2>
+                <div className="study-section-heading" data-motion-reveal>
+                  <span className="study-section-number">02 / My scope</span>
+                  <h2 id="scope-heading">What I worked on.</h2>
+                </div>
                 <p className="study-section-lead">{presentation.scopeIntro}</p>
                 <div className="study-modules">
                   {presentation.modules.map((module, index) => (
-                    <article className="study-module" key={module.title}>
+                    <article className="study-module" key={module.title} data-motion-reveal style={{ "--reveal-delay": `${(index % 2) * 70}ms` } as CSSProperties}>
                       <span className="study-module-number">{String(index + 1).padStart(2, "0")} / Contribution</span>
                       <h3>{module.title}</h3>
                       <p>{module.body}</p>
@@ -166,9 +189,11 @@ export default async function WorkPage({ params }: WorkPageProps) {
                 </div>
               </section>
 
-              <section id="flow" className="study-section" aria-labelledby="flow-heading">
-                <span className="study-section-number">03 / Product flow</span>
-                <h2 id="flow-heading">How the pieces connect.</h2>
+              <section id="flow" className="study-section study-section--flow" aria-labelledby="flow-heading">
+                <div className="study-section-heading" data-motion-reveal>
+                  <span className="study-section-number">03 / Product flow</span>
+                  <h2 id="flow-heading">How the pieces connect.</h2>
+                </div>
                 <p className="study-section-lead">{presentation.flowIntro}</p>
                 <div className="study-flow">
                   <div className="study-flow-top">
@@ -180,7 +205,7 @@ export default async function WorkPage({ params }: WorkPageProps) {
                       <h3>{lane.title}</h3>
                       <ol className="study-flow-steps" style={{ "--study-flow-columns": lane.steps.length } as CSSProperties}>
                         {lane.steps.map((step) => (
-                          <li className={"study-flow-step" + (step.own ? " study-flow-step--own" : "")} key={step.title}>
+                          <li className={"study-flow-step" + (step.own ? " study-flow-step--own" : "")} key={step.title} data-motion-reveal>
                             <span className="study-flow-scope">{step.scope}</span>
                             <h4>{step.title}</h4>
                             <p>{step.body}</p>
@@ -190,7 +215,7 @@ export default async function WorkPage({ params }: WorkPageProps) {
                     </div>
                   ))}
                   {presentation.foundation && (
-                    <div className="study-flow-foundation">
+                    <div className="study-flow-foundation" data-motion-reveal>
                       <strong>{presentation.foundation.title}</strong>
                       <p>{presentation.foundation.body}</p>
                     </div>
@@ -200,12 +225,14 @@ export default async function WorkPage({ params }: WorkPageProps) {
               </section>
 
               <section id="delivered" className="study-section" aria-labelledby="delivered-heading">
-                <span className="study-section-number">04 / Delivered</span>
-                <h2 id="delivered-heading">The contribution, in practice.</h2>
-                <div className="study-delivered"><p>{project.outcome}</p></div>
+                <div className="study-section-heading" data-motion-reveal>
+                  <span className="study-section-number">04 / Delivered</span>
+                  <h2 id="delivered-heading">The contribution, in practice.</h2>
+                </div>
+                <div className="study-delivered" data-motion-reveal><p>{project.outcome}</p></div>
                 <div className="study-capabilities">
                   {presentation.capabilities.map((capability) => (
-                    <article className="study-capability" key={capability.title}>
+                    <article className="study-capability" key={capability.title} data-motion-reveal>
                       <h3><Check size={16} aria-hidden="true" />{capability.title}</h3>
                       <p>{capability.body}</p>
                     </article>
@@ -217,18 +244,24 @@ export default async function WorkPage({ params }: WorkPageProps) {
 
           <nav className="study-next" aria-label="Project navigation">
             <Link href="/#work" className="study-return"><ArrowLeft size={17} aria-hidden="true" />Back to all selected work</Link>
-            <Link href={"/work/" + nextProject.slug} className="study-next-project">
-              <div>
+            <Link href={"/work/" + nextProject.slug + "/"} className="study-next-project" data-motion-reveal>
+              <div className="study-next-copy">
                 <span className="study-next-label">Next case study / {nextProject.number}</span>
                 <strong>{nextProject.title}</strong>
                 <p>{nextProject.category}</p>
+                <span className="study-next-arrow"><ArrowUpRight size={28} aria-hidden="true" /></span>
               </div>
-              <span className="study-next-arrow"><ArrowUpRight size={28} aria-hidden="true" /></span>
+              <div className="study-next-visual" style={{ "--next-accent": nextProject.accent } as CSSProperties}>
+                <div className="study-next-browser">
+                  <Image src={nextProject.image} alt={nextProject.imageAlt} width={1265} height={712} sizes="(max-width: 760px) calc(100vw - 96px), 500px" />
+                </div>
+                <span>{nextProject.slug === "valqua" ? "Public product introduction" : "Public website preview"}</span>
+              </div>
             </Link>
           </nav>
         </div>
       </main>
-      <SiteFooter />
-    </>
+      <StudioFooter />
+    </div>
   );
 }

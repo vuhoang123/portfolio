@@ -14,7 +14,7 @@ npm run dev
 
 Open `http://localhost:3000`. The development server can also be reached from the local network.
 
-The alternative design study is available at `http://localhost:3000/design-study/`. It explores a staggered project gallery, always-visible experience chapters, color changes between sections, scroll reveals, and pointer interactions. Its concept bar links back to the current homepage for comparison.
+The main portfolio uses the developer studio direction: a staggered project gallery, always-visible experience chapters, paper/cobalt/dark sections, scroll reveals, and pointer interactions. Case studies share the same navigation, contact area, typography, and motion. `http://localhost:3000/design-study/` remains a design-preview route using the same home component.
 
 ## Verify and build
 
@@ -30,17 +30,17 @@ The build also runs `scripts/normalize-static-segments.mjs`. It adds the dot-sep
 
 ## Editing
 
-- `src/app/page.tsx`: home page sections and introduction.
+- `src/app/page.tsx`, `src/components/StudioHome.tsx`: home page sections and introduction.
+- `src/app/studio.css`, `src/components/StudioChrome.tsx`, `src/app/studio-chrome.css`: developer studio layout and shared navigation/contact.
+- `src/components/DirectionExperience.tsx`, `src/app/design-study/experience.css`: always-visible employment chapters.
+- `src/components/DirectionMotion.tsx`, `src/app/design-study/motion.css`: progressive scroll reveals, pointer tilt, magnetic buttons, and preview parallax.
 - `src/lib/projects.ts`: case studies, employment history, and skills.
 - `src/app/work/[slug]/page.tsx`: individual case study layout.
 - `src/app/globals.css`: responsive styles, colors, and typography.
 - `src/app/home.css`: spatial hero and interactive layer controls.
-- `src/components/SelectedWork.tsx`, `src/app/selected-work.css`: public previews and personal project scope.
-- `src/components/ExperienceSection.tsx`, `src/app/experience.css`: employer timeline and expandable work details.
 - `src/lib/case-studies.ts`, `src/app/case-study.css`: module cards and illustrative product workflows for case studies.
 - `src/app/readability.css`: shared type sizes and section spacing.
 - `src/components/HeroExperience.tsx`, `LayerScene.tsx`, and `scene-textures.ts`: hero interaction, 3D layers, and canvas artwork.
-- `src/components/SiteChrome.tsx`: shared navigation and footer.
 - `src/app/layout.tsx`: document metadata.
 
 The 3D interface is an illustrative view of UI, application operations, and data. It does not reproduce a company's private admin screen. Public project previews in `public/images/` are authentic website captures; `sources.json` records their source and scope. VALQUA's image shows the public product introduction, while the case study describes selected application modules. Project contribution text distinguishes personal work from the full team's product.
