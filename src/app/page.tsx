@@ -18,27 +18,38 @@ export default function Home() {
         <section className="hero container" aria-labelledby="hero-heading">
           <div className="hero-meta">
             <span className="eyebrow">
-              <i className="status-dot" /> Hoàng Anh Vũ / Web developer
+              <i className="status-dot" /> Hoàng Anh Vũ / Full-stack engineer
             </span>
             <span className="hero-location">Based in Ho Chi Minh City, VN</span>
           </div>
-          <h1 id="hero-heading">
-            Interfaces people use.
-            <br />
-            <span>Systems teams run.</span>
-          </h1>
-          <div className="hero-intro">
-            <a className="round-link" href="#work">
-              <span>Explore my work</span>
-              <ArrowDown size={18} />
-            </a>
-            <p>
-              I’m a full-stack engineer building thoughtful frontends and the
-              systems behind them.
-              <br className="desktop-break" /> React, Next.js, Vue & Laravel.
-            </p>
+          <div className="hero-composition">
+            <div className="hero-copy">
+              <div className="hero-index"><span>PORTFOLIO / 2026</span><span className="hero-index-line" /></div>
+              <h1 id="hero-heading">
+                Beyond<br />{" "}
+                <span className="hero-outline">the</span> <span>interface.</span>
+              </h1>
+              <div className="hero-intro">
+                <p>
+                  I’m Hoàng Anh Vũ, a full-stack engineer.<br />
+                  I build the interfaces people use — and the systems teams run.
+                </p>
+                <div className="hero-actions">
+                  <a className="hero-primary" href="#work">
+                    Explore my work <ArrowDown size={18} />
+                  </a>
+                  <a className="hero-secondary" href="https://github.com/vuhoang123" target="_blank" rel="noreferrer">
+                    GitHub <ArrowUpRight size={17} />
+                  </a>
+                </div>
+              </div>
+              <div className="hero-specialties">
+                <span>Frontend craft</span><i />
+                <span>Full-stack thinking</span>
+              </div>
+            </div>
+            <HeroExperience />
           </div>
-          <HeroExperience />
           <div className="hero-footnote">
             <span>Good interfaces go deeper than the surface.</span>
             <span>
@@ -46,6 +57,14 @@ export default function Home() {
             </span>
           </div>
         </section>
+        <div className="stack-strip" aria-label="Core technologies">
+          <div className="container stack-strip-inner">
+            <span className="stack-strip-label">THE TOOLS BEHIND THE WORK</span>
+            <span>React <i>↗</i></span><span>Next.js <i>↗</i></span>
+            <span>Vue <i>↗</i></span><span>Laravel <i>↗</i></span>
+          </div>
+        </div>
+        <div className="work-surface">
         <section
           id="work"
           className="work-section container"
@@ -54,11 +73,7 @@ export default function Home() {
           <div className="section-heading">
             <div>
               <span className="eyebrow">01 / Selected work</span>
-              <h2 id="work-heading">
-                Built for real
-                <br />
-                people & workflows.
-              </h2>
+              <h2 id="work-heading">Real products.<br /><span>Real responsibility.</span></h2>
             </div>
             <p>
               From public websites to the admin tools
@@ -85,6 +100,10 @@ export default function Home() {
                       } as React.CSSProperties
                     }
                   >
+                    <div className="project-art-heading" aria-hidden="true">
+                      <span>{project.slug === "evisa" ? "CONNECTED OPERATIONS" : project.slug === "valqua" ? "INDUSTRIAL WORKFLOWS" : project.slug === "skyservice" ? "A BETTER ARRIVAL" : "GLOBAL BUSINESS"}</span>
+                      <b>{project.number}</b>
+                    </div>
                     <div className="preview-browser">
                       <div className="preview-bar">
                         <span className="browser-dots">
@@ -113,7 +132,7 @@ export default function Home() {
                     <span className="image-label">
                       {project.slug === "valqua"
                         ? "Public product introduction"
-                        : "Live website preview"}
+                        : "Public website preview"}
                     </span>
                   </div>
                 </Link>
@@ -128,6 +147,13 @@ export default function Home() {
                       </Link>
                     </h3>
                     <p>{project.description}</p>
+                    <div className="project-responsibility">
+                      <span className="responsibility-dot" />
+                      {project.slug === "evisa" ? "Admin · Orders · Database · CMS" : project.slug === "valqua" ? "Daily reports · OCR interfaces · Flange" : project.slug === "skyservice" ? "Next.js + Laravel development" : "Customer-facing UI implementation"}
+                    </div>
+                    <Link className="project-case-link" href={`/work/${project.slug}/`}>
+                      Explore the case study <ArrowUpRight size={16} />
+                    </Link>
                   </div>
                   <div className="project-stack">
                     {project.stack.slice(0, 2).map((item) => (
@@ -139,6 +165,7 @@ export default function Home() {
             ))}
           </div>
         </section>
+        </div>
         <section
           id="experience"
           className="experience-section container"

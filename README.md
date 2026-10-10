@@ -32,11 +32,14 @@ The build also runs `scripts/normalize-static-segments.mjs`. It adds the dot-sep
 - `src/lib/projects.ts`: case studies, employment history, and skills.
 - `src/app/work/[slug]/page.tsx`: individual case study layout.
 - `src/app/globals.css`: responsive styles, colors, and typography.
+- `src/app/home.css`: spatial hero, interactive layer controls, and the dark project gallery.
 - `src/components/HeroExperience.tsx`, `LayerScene.tsx`, and `scene-textures.ts`: hero interaction, 3D layers, and canvas artwork.
 - `src/components/SiteChrome.tsx`: shared navigation and footer.
 - `src/app/layout.tsx`: document metadata.
 
 The 3D interface is an illustrative view of UI, application operations, and data. It does not reproduce a company's private admin screen. Public project previews in `public/images/` are authentic website captures; `sources.json` records their source and scope. VALQUA's image shows the public product introduction, while the case study describes selected application modules. Project contribution text distinguishes personal work from the full team's product.
+
+The scene renders on demand and brings each layer forward with the chapter controls or depth slider. It follows scrolling until a manual selection takes over. Reduced-motion preferences disable scroll-follow and pointer motion; browsers without WebGL receive a CSS preview.
 
 No account keys, environment variables, or external services are required to run locally. A private Sites manifest, if supplied for the optional hosted preview, is deployment metadata and is not needed for local development.
 

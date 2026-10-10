@@ -306,3 +306,36 @@ export function createPanelTexture(kind: LayerKind) {
   texture.generateMipmaps = false;
   return texture;
 }
+
+export function createLayerMarkerTexture(kind: LayerKind) {
+  const canvas = document.createElement("canvas");
+  canvas.width = 640;
+  canvas.height = 150;
+  const ctx = canvas.getContext("2d");
+  if (!ctx) throw new Error("A 2D canvas is required to draw the layer markers.");
+  const labels: Record<LayerKind, string> = {
+    interface: "01 / INTERFACE",
+    admin: "02 / OPERATIONS",
+    data: "03 / SYSTEMS",
+  };
+  round(ctx, 0, 0, 640, 150, 36, kind === "admin" ? "#202634" : blue);
+  dot(ctx, 48, 76, 9, kind === "admin" ? "#a6b7ff" : "#ffffff");
+  text(ctx, labels[kind], 84, 91, 42, "#ffffff", 600, true);
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  return texture;
+}
+
+export function createPanelShadowTexture() {
+  const canvas = document.createElement("canvas");
+  canvas.width = 512;
+  canvas.height = 384;
+  const ctx = canvas.getContext("2d");
+  if (!ctx) throw new Error("A 2D canvas is required to draw the layer shadows.");
+  ctx.shadowBlur = 34;
+  ctx.shadowColor = "rgba(24,32,60,0.45)";
+  round(ctx, 42, 40, 428, 300, 34, "rgba(24,32,60,0.20)");
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  return texture;
+}
