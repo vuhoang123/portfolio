@@ -1,0 +1,34 @@
+{
+  "capturedOn": "2026-10-10",
+  "method": "Screenshots of authentic public homepages using Codex browser capture; JPEG converted to WebP without changing page content.",
+  "dimensions": {
+    "width": 1265,
+    "height": 712
+  },
+  "assets": [
+    {
+      "file": "evisa.webp",
+      "url": "https://global-evisa.com/en",
+      "title": "Global eVisa Services",
+      "caption": "Public customer-facing homepage. Does not show the admin modules implemented by Hoang Anh Vu."
+    },
+    {
+      "file": "skyservice.webp",
+      "url": "https://vietnamskyservice.com/en",
+      "title": "Vietnam Sky Service",
+      "caption": "Public airport services homepage."
+    },
+    {
+      "file": "valqua.webp",
+      "url": "https://spm.valqua.co.jp/",
+      "title": "VALQUA SPM product introduction",
+      "caption": "Public product introduction only. This is not a screenshot of the daily-report or flange modules implemented by Hoang Anh Vu."
+    },
+    {
+      "file": "offshore.webp",
+      "url": "https://global-offshore.org/en",
+      "title": "Global Offshore",
+      "caption": "Public company services homepage."
+    }
+  ]
+}
