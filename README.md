@@ -24,6 +24,8 @@ npm start
 
 The build creates `out/`. `npm start` serves that export at `http://localhost:3000`; stop the development server first if it is using the same port. The exported files can be hosted by any static website host.
 
+The build also runs `scripts/normalize-static-segments.mjs`. It adds the dot-separated prefetch filenames expected by the Next.js router when Windows has exported them as nested folders. Existing valid files are preserved; platforms that already export the correct names need no aliases.
+
 ## Editing
 
 - `src/app/page.tsx`: home page sections and introduction.
