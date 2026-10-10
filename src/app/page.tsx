@@ -1,11 +1,10 @@
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowDown, ArrowRight, ArrowUpRight, Braces } from "lucide-react";
 import HeroExperience from "@/components/HeroExperience";
+import SelectedWork from "@/components/SelectedWork";
+import ExperienceSection from "@/components/ExperienceSection";
 import { SiteHeader, SiteFooter } from "@/components/SiteChrome";
 import {
-  projects,
-  experiences,
   skillGroups,
   additionalWork,
 } from "@/lib/projects";
@@ -64,148 +63,8 @@ export default function Home() {
             <span>Vue <i>↗</i></span><span>Laravel <i>↗</i></span>
           </div>
         </div>
-        <div className="work-surface">
-        <section
-          id="work"
-          className="work-section container"
-          aria-labelledby="work-heading"
-        >
-          <div className="section-heading">
-            <div>
-              <span className="eyebrow">01 / Selected work</span>
-              <h2 id="work-heading">Real products.<br /><span>Real responsibility.</span></h2>
-            </div>
-            <p>
-              From public websites to the admin tools
-              <br className="desktop-break" /> and reporting modules behind
-              them.
-            </p>
-          </div>
-          <div className="project-grid">
-            {projects.map((project, index) => (
-              <article
-                className={`project-card project-${project.slug}`}
-                key={project.slug}
-              >
-                <Link
-                  href={`/work/${project.slug}/`}
-                  className="project-image-link"
-                  aria-label={`View ${project.title} case study`}
-                >
-                  <div
-                    className="project-image-shell"
-                    style={
-                      {
-                        "--project-accent": project.accent,
-                      } as React.CSSProperties
-                    }
-                  >
-                    <div className="project-art-heading" aria-hidden="true">
-                      <span>{project.slug === "evisa" ? "CONNECTED OPERATIONS" : project.slug === "valqua" ? "INDUSTRIAL WORKFLOWS" : project.slug === "skyservice" ? "A BETTER ARRIVAL" : "GLOBAL BUSINESS"}</span>
-                      <b>{project.number}</b>
-                    </div>
-                    <div className="preview-browser">
-                      <div className="preview-bar">
-                        <span className="browser-dots">
-                          <i />
-                          <i />
-                          <i />
-                        </span>
-                        <span>{new URL(project.externalUrl).hostname}</span>
-                        <ArrowUpRight size={12} />
-                      </div>
-                      <Image
-                        src={project.image}
-                        alt={project.imageAlt}
-                        width={1265}
-                        height={712}
-                        sizes={
-                          index === 0
-                            ? "(max-width: 760px) 92vw, 1100px"
-                            : "(max-width: 760px) 92vw, 550px"
-                        }
-                      />
-                    </div>
-                    <span className="project-open">
-                      <ArrowUpRight size={22} />
-                    </span>
-                    <span className="image-label">
-                      {project.slug === "valqua"
-                        ? "Public product introduction"
-                        : "Public website preview"}
-                    </span>
-                  </div>
-                </Link>
-                <div className="project-details">
-                  <div>
-                    <span className="project-category">
-                      {project.number} / {project.category}
-                    </span>
-                    <h3>
-                      <Link href={`/work/${project.slug}/`}>
-                        {project.title} <ArrowUpRight size={23} />
-                      </Link>
-                    </h3>
-                    <p>{project.description}</p>
-                    <div className="project-responsibility">
-                      <span className="responsibility-dot" />
-                      {project.slug === "evisa" ? "Admin · Orders · Database · CMS" : project.slug === "valqua" ? "Daily reports · OCR interfaces · Flange" : project.slug === "skyservice" ? "Next.js + Laravel development" : "Customer-facing UI implementation"}
-                    </div>
-                    <Link className="project-case-link" href={`/work/${project.slug}/`}>
-                      Explore the case study <ArrowUpRight size={16} />
-                    </Link>
-                  </div>
-                  <div className="project-stack">
-                    {project.stack.slice(0, 2).map((item) => (
-                      <span key={item}>{item}</span>
-                    ))}
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
-        </section>
-        </div>
-        <section
-          id="experience"
-          className="experience-section container"
-          aria-labelledby="experience-heading"
-        >
-          <div className="section-heading">
-            <div>
-              <span className="eyebrow">02 / Experience</span>
-              <h2 id="experience-heading">
-                From interface
-                <br />
-                to implementation.
-              </h2>
-            </div>
-            <p>
-              Building professionally since 2022.
-              <br />
-              Across service platforms and industrial software.
-            </p>
-          </div>
-          <div className="experience-list">
-            {experiences.map((experience, index) => (
-              <article className="experience-row" key={experience.company}>
-                <div className="experience-period">
-                  <span className="mono">0{index + 1}</span>
-                  <p>{experience.period}</p>
-                </div>
-                <div className="experience-company">
-                  <h3>{experience.company}</h3>
-                  <span>{experience.role}</span>
-                </div>
-                <div className="experience-description">
-                  {experience.description.slice(0, 2).map((line) => (
-                    <p key={line}>{line}</p>
-                  ))}
-                </div>
-              </article>
-            ))}
-          </div>
-        </section>
+        <SelectedWork />
+        <ExperienceSection />
         <section
           id="about"
           className="about-section container"

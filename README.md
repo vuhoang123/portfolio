@@ -32,7 +32,11 @@ The build also runs `scripts/normalize-static-segments.mjs`. It adds the dot-sep
 - `src/lib/projects.ts`: case studies, employment history, and skills.
 - `src/app/work/[slug]/page.tsx`: individual case study layout.
 - `src/app/globals.css`: responsive styles, colors, and typography.
-- `src/app/home.css`: spatial hero, interactive layer controls, and the dark project gallery.
+- `src/app/home.css`: spatial hero and interactive layer controls.
+- `src/components/SelectedWork.tsx`, `src/app/selected-work.css`: public previews and personal project scope.
+- `src/components/ExperienceSection.tsx`, `src/app/experience.css`: employer timeline and expandable work details.
+- `src/lib/case-studies.ts`, `src/app/case-study.css`: module cards and illustrative product workflows for case studies.
+- `src/app/readability.css`: shared type sizes and section spacing.
 - `src/components/HeroExperience.tsx`, `LayerScene.tsx`, and `scene-textures.ts`: hero interaction, 3D layers, and canvas artwork.
 - `src/components/SiteChrome.tsx`: shared navigation and footer.
 - `src/app/layout.tsx`: document metadata.

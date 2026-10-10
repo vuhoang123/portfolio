@@ -4,6 +4,10 @@ import "@fontsource/ibm-plex-mono/400.css";
 import "@fontsource/ibm-plex-mono/500.css";
 import "./globals.css";
 import "./home.css";
+import "./selected-work.css";
+import "./readability.css";
+import "./experience.css";
+import "./case-study.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL(

@@ -1,0 +1,123 @@
+.eyebrow, .mono { font-size: 12px; }
+.desktop-nav { font-size: 16px; gap: 30px; margin-right: 45px; }
+.header-contact { font-size: 15px; }
+.text-link { font-size: 16px; }
+.hero-meta .eyebrow { font-size: 11px; }
+.hero-location { font-size: 11px; }
+.hero-intro p { font-size: 16px; line-height: 1.65; max-width: 405px; }
+.hero-primary, .hero-secondary { font-size: 15px; }
+.hero-index, .hero-specialties { font-size: 11px; }
+.hero-footnote { font-size: 13px; }
+.hero-footnote span:last-child { font-size: 11px; }
+.scene-eyebrow, .scene-status { font-size: 10px; }
+.scene-control-copy strong { font-size: 14px; }
+.scene-control-copy > span { font-size: 11px; line-height: 1.35; }
+.scene-control-number { font-size: 10px; }
+.scene-progress-label { font-size: 10px; min-width: 170px; }
+.scene-caption-current { font-size: 11px; }
+.scene-caption-description, .scene-related-work { font-size: 12px; }
+.scene-caption-note { font-size: 10px; }
+.scene-caption-actions { max-width: 180px; }
+.stack-strip-label { font-size: 11px; max-width: 180px; }
+.about-section { padding-top: 78px; }
+.about-intro { gap: 8%; }
+.about-copy { padding-top: 17px; }
+.about-intro .eyebrow { font-size: 12px; }
+.large-copy { font-size: 28px; }
+.about-copy > p:not(.large-copy) { font-size: 17px; line-height: 1.7; margin-top: 20px; }
+.education { margin-block: 26px 22px; }
+.education .eyebrow { font-size: 12px; }
+.education p { font-size: 18px; }
+.education > span:last-child { font-size: 15px; }
+.skills-heading { margin-top: 46px; padding-bottom: 18px; }
+.skills-heading > span:last-child { font-size: 14px; }
+.skills-grid { gap: 22px; padding-top: 25px; }
+.skill-group { padding: 22px; border: 1px solid var(--line); background: #edeFE9; border-radius: 5px; }
+.skill-group h3 { font-size: 16px; }
+.skill-group ul { font-size: 16px; gap: 10px; }
+.more-section { padding-block: 76px 78px; }
+.section-heading { margin-bottom: 29px; }
+.section-heading > p { font-size: 17px; }
+.additional-card { padding-top: 24px; }
+.additional-card > .mono { font-size: 11px; }
+.additional-card h3 { font-size: 28px; }
+.additional-card p { font-size: 16px; line-height: 1.65; }
+.additional-stack { font-size: 12px; line-height: 1.6; }
+.additional-card .text-link { font-size: 14px; }
+.contact-section { padding-block: 32px; }
+.contact-top .eyebrow, .contact-location { font-size: 12px; }
+.contact-title { font-size: clamp(60px, 7vw, 106px); margin-block: 28px; }
+.contact-title > svg { width: 90px; height: 90px; }
+.contact-bottom > a { font-size: 20px; overflow-wrap: anywhere; }
+.contact-bottom p { font-size: 16px; }
+.site-footer { font-size: 13px; padding-block: 25px; }
+@media (max-width: 1100px) {
+  .desktop-nav { gap: 22px; margin-right: 16px; font-size: 15px; }
+  .hero-intro p { font-size: 16px; max-width: 335px; }
+  .hero-primary, .hero-secondary { font-size: 14px; }
+  .scene-control-copy strong { font-size: 13px; }
+  .scene-control-copy > span { font-size: 10px; }
+  .scene-progress-label { font-size: 9px; min-width: 150px; }
+  .scene-caption { display: block; }
+  .scene-caption-actions { max-width: none; flex-direction: row; justify-content: space-between; margin-top: 10px; }
+  .large-copy { font-size: 25px; }
+  .skill-group { padding: 18px; }
+}
+@media (max-width: 760px) {
+  .eyebrow, .mono { font-size: 11px; }
+  .header-contact { font-size: 14px; padding: 10px 12px; }
+  .hero-meta .eyebrow { font-size: 10px; }
+  .hero-index, .hero-specialties { font-size: 10px; }
+  .hero-intro p { font-size: 16px; max-width: 360px; }
+  .hero-primary, .hero-secondary { font-size: 14px; }
+  .hero-footnote { font-size: 12px; }
+  .scene-eyebrow, .scene-status { font-size: 9px; }
+  .scene-control-copy strong { font-size: 13px; }
+  .scene-control-copy > span { font-size: 10px; }
+  .scene-control-number { font-size: 9px; }
+  .scene-control { padding: 13px 8px; gap: 6px; }
+  .scene-progress-label { font-size: 9px; min-width: 151px; }
+  .scene-caption-current { font-size: 10px; }
+  .scene-caption-description, .scene-related-work { font-size: 12px; }
+  .scene-caption-note { font-size: 9px; }
+  .stack-strip-label { font-size: 10px; max-width: none; }
+  .about-section { padding-top: 52px; }
+  .about-intro .eyebrow { font-size: 11px; }
+  .about-copy { padding-top: 22px; }
+  .large-copy { font-size: 25px; }
+  .about-copy > p:not(.large-copy) { font-size: 16px; }
+  .education .eyebrow { font-size: 11px; }
+  .education p { font-size: 17px; }
+  .education > span:last-child { font-size: 15px; }
+  .skills-heading { margin-top: 31px; gap: 15px; }
+  .skills-heading .eyebrow { font-size: 11px; }
+  .skills-heading > span:last-child { font-size: 12px; }
+  .skills-grid { gap: 13px; }
+  .skill-group { padding: 17px 14px; }
+  .skill-group h3 { font-size: 14px; }
+  .skill-group ul, .skill-group li { font-size: 14px; }
+  .more-section { padding-block: 52px 56px; }
+  .section-heading > p { font-size: 16px; }
+  .additional-card > .mono { font-size: 11px; }
+  .additional-card h3 { font-size: 27px; }
+  .additional-card p { font-size: 16px; }
+  .additional-stack { font-size: 12px; }
+  .additional-grid { gap: 12px; }
+  .contact-section { padding-block: 28px; }
+  .contact-top .eyebrow, .contact-location { font-size: 10px; }
+  .contact-title { font-size: clamp(44px, 10.8vw, 72px); margin-block: 22px; }
+  .contact-title > svg { width: 48px; height: 48px; }
+  .contact-bottom > a { font-size: 16px; gap: 12px; }
+  .contact-bottom p { font-size: 15px; }
+  .site-footer { font-size: 12px; }
+}
+@media (max-width: 380px) {
+  .hero-meta .eyebrow { font-size: 9px; }
+  .header-contact { font-size: 12px; }
+  .scene-status { display: none; }
+  .scene-control-copy > span { display: none; }
+  .scene-control-copy strong { font-size: 12px; }
+  .scene-progress-label { min-width: 139px; font-size: 8px; }
+  .scene-caption-actions { flex-wrap: wrap; gap: 8px; }
+  .skill-group { padding: 16px 11px; }
+}

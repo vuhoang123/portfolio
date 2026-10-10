@@ -1,4 +1,4 @@
-/* The home page uses a spatial hero and a contrasting project gallery. */
+/* Spatial hero and interactive product layers. */
 .hero { padding-top: 25px; }
 .hero-meta { margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--line); }
 .hero-composition { display: grid; grid-template-columns: .9fr 1.1fr; align-items: center; gap: 12px; }
@@ -73,45 +73,6 @@
 .stack-strip-inner > span:not(.stack-strip-label) { font-size: 23px; font-weight: 550; letter-spacing: -.035em; display: flex; align-items: center; gap: 30px; }
 .stack-strip-inner i { font-style: normal; color: var(--blue); font-size: 18px; }
 .stack-strip-label { font: 9px var(--mono); max-width: 140px; line-height: 1.7; letter-spacing: .07em; color: var(--muted); }
-.work-surface { background: #181c25; color: #f5f4ef; margin-top: 0; }
-.work-section { padding-block: 100px 108px; }
-.work-section .section-heading { margin-bottom: 56px; }
-.work-section .eyebrow { color: #c0c4d0; }
-.work-section .section-heading h2 { font-size: clamp(39px, 4.6vw, 66px); }
-.work-section .section-heading h2 span { color: #929baf; }
-.work-section .section-heading > p { color: #a4abba; }
-.project-grid { gap: 64px 32px; }
-.project-evisa { display: grid; grid-template-columns: .8fr 1.2fr; align-items: center; gap: 50px; padding-bottom: 55px; border-bottom: 1px solid #363b47; }
-.project-evisa .project-image-link { grid-column: 2; grid-row: 1; }
-.project-evisa .project-details { grid-column: 1; grid-row: 1; display: block; padding: 0; }
-.project-image-shell { border-radius: 8px; padding: 78px 31px 56px; background: linear-gradient(145deg, color-mix(in srgb, var(--project-accent) 85%, white), var(--project-accent)); }
-.project-image-shell:before { content: ""; position: absolute; inset: 0; z-index: -1; background-image: linear-gradient(#ffffff1a 1px, transparent 1px), linear-gradient(90deg, #ffffff1a 1px, transparent 1px); background-size: 35px 35px; }
-.project-evisa .project-image-shell { padding: 100px 33px 75px; }
-.project-art-heading { position: absolute; top: 24px; left: 29px; right: 55px; display: flex; align-items: start; justify-content: space-between; color: #243557; }
-.project-art-heading > span { font: 8px var(--mono); letter-spacing: .08em; padding-top: 4px; }
-.project-art-heading > b { font-size: 80px; line-height: .75; font-weight: 600; letter-spacing: -.07em; opacity: .3; }
-.preview-browser { transform: perspective(1000px) rotateY(-9deg) rotateX(5deg) rotateZ(-3deg); box-shadow: 16px 24px 24px #25315732, 1px 3px 1px #ffffff55; transition: transform .6s cubic-bezier(.2,.75,.2,1), box-shadow .6s; }
-.project-valqua .preview-browser { transform: perspective(1000px) rotateY(8deg) rotateX(5deg) rotateZ(3deg); }
-.project-image-link:hover .preview-browser { transform: perspective(1000px) rotateY(0) rotateX(0) rotateZ(0) translateY(-8px) scale(1.02); box-shadow: 12px 36px 35px #25315730; }
-.project-open { background: #fff9; top: 20px; right: 18px; width: 32px; height: 32px; color: #263b68; }
-.image-label { color: #263750; left: 29px; bottom: 22px; font-size: 8px; }
-.project-category { color: #9ba5bb; font-size: 9px; }
-.project-details h3 { font-size: 31px; margin-top: 12px; font-weight: 550; }
-.project-evisa .project-details h3 { font-size: 49px; line-height: 1.15; margin: 19px 0 19px; }
-.project-evisa .project-details h3 svg { display: none; }
-.project-details h3 a:hover { color: #9cacff; }
-.project-details p { color: #a8b0c0; font-size: 12px; }
-.project-evisa .project-details p { max-width: 345px; font-size: 14px; }
-.project-details { display: block; padding-top: 25px; }
-.project-responsibility { font: 9px var(--mono); color: #c9d1e0; margin-top: 18px; display: flex; align-items: center; gap: 8px; line-height: 1.8; }
-.responsibility-dot { width: 4px; height: 4px; flex-shrink: 0; background: #90a8ff; border-radius: 50%; }
-.project-case-link { display: inline-flex; align-items: center; gap: 14px; border-bottom: 1px solid #6b7385; font-size: 11px; padding-bottom: 6px; margin-top: 26px; }
-.project-case-link:hover { color: #9cacff; }
-.project-stack { padding-top: 20px; }
-.project-stack span { border-color: #414859; color: #98a2b9; font-size: 8px; }
-.project-offshore { gap: 55px; margin-top: 2px; padding-top: 50px; border-top: 1px solid #363b47; }
-.project-offshore .project-image-shell { padding: 78px 30px 55px; }
-.project-offshore .project-details h3 { font-size: 38px; }
 @keyframes hero-enter { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
 @media (max-width: 1100px) {
   .hero-composition { grid-template-columns: .85fr 1.15fr; gap: 0; }
@@ -130,11 +91,6 @@
   .scene-caption { font-size: 9px; }
   .stack-strip-inner { gap: 20px; }
   .stack-strip-inner > span:not(.stack-strip-label) { font-size: 20px; gap: 15px; }
-  .project-evisa { gap: 30px; }
-  .project-evisa .project-details h3 { font-size: 40px; }
-  .project-evisa .project-image-shell { padding: 80px 25px 55px; }
-  .project-art-heading > b { font-size: 65px; }
-  .project-details h3 { font-size: 27px; }
 }
 @media (max-width: 760px) {
   .hero { padding-top: 14px; }
@@ -185,26 +141,6 @@
   .stack-strip-label { max-width: none; width: 100%; font-size: 7px; }
   .stack-strip-inner > span:not(.stack-strip-label) { font-size: 18px; gap: 8px; flex: 1; white-space: nowrap; }
   .stack-strip-inner i { font-size: 12px; }
-  .work-section { padding-block: 65px 70px; }
-  .work-section .section-heading { margin-bottom: 35px; }
-  .work-section .section-heading h2 { font-size: clamp(34px, 8.4vw, 48px); }
-  .work-section .section-heading > p { font-size: 11px; max-width: 280px; }
-  .project-grid { gap: 44px; }
-  .project-evisa { display: block; padding-bottom: 38px; }
-  .project-evisa .project-image-shell, .project-image-shell, .project-offshore .project-image-shell { padding: 70px 22px 48px; border-radius: 7px; }
-  .project-art-heading { top: 22px; left: 22px; right: 52px; }
-  .project-art-heading > span { font-size: 6px; }
-  .project-art-heading > b { font-size: 54px; }
-  .image-label { left: 22px; bottom: 17px; font-size: 6px; }
-  .project-open { width: 27px; height: 27px; top: 17px; right: 15px; }
-  .project-details, .project-evisa .project-details { padding-top: 21px; }
-  .project-details h3, .project-evisa .project-details h3, .project-offshore .project-details h3 { font-size: 28px; margin: 10px 0 12px; }
-  .project-evisa .project-details p, .project-details p { font-size: 11px; }
-  .project-category { font-size: 8px; }
-  .project-responsibility { font-size: 8px; margin-top: 13px; }
-  .project-case-link { font-size: 10px; margin-top: 20px; }
-  .project-stack { padding-top: 17px; }
-  .project-offshore { padding-top: 38px; margin-top: 0; display: block; }
 }
 @media (max-width: 380px) {
   .hero h1 { font-size: 13.5vw; }
@@ -217,5 +153,4 @@
 @media (prefers-reduced-motion: reduce) {
   .hero-copy, .hero-experience { animation: none; }
   .hero-primary:hover { transform: none; }
-  .project-image-link:hover .preview-browser { transform: none; }
 }
