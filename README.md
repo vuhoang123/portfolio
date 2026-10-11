@@ -37,15 +37,17 @@ The build also runs `scripts/normalize-static-segments.mjs`. It adds the dot-sep
 - `src/lib/projects.ts`: case studies, employment history, and skills.
 - `src/app/work/[slug]/page.tsx`: individual case study layout.
 - `src/app/globals.css`: responsive styles, colors, and typography.
-- `src/app/home.css`: spatial hero and interactive layer controls.
+- `src/app/home.css`: spatial hero and interactive artwork controls.
 - `src/lib/case-studies.ts`, `src/app/case-study.css`: module cards and illustrative product workflows for case studies.
 - `src/app/readability.css`: shared type sizes and section spacing.
-- `src/components/HeroExperience.tsx`, `LayerScene.tsx`, and `scene-textures.ts`: hero interaction, 3D layers, and canvas artwork.
+- `src/components/HeroExperience.tsx`, `src/components/KineticScene.tsx`: accessible hero controls and the instanced kinetic sculpture.
 - `src/app/layout.tsx`: document metadata.
 
-The 3D interface is an illustrative view of UI, application operations, and data. It does not reproduce a company's private admin screen. Public project previews in `public/images/` are authentic website captures; `sources.json` records their source and scope. VALQUA's image shows the public product introduction, while the case study describes selected application modules. Project contribution text distinguishes personal work from the full team's product.
+The hero is an independent kinetic signature: 474 beveled cubes form VŨ, an orbital ribbon, and a rolling terrain. Pointer movement bends the blocks; clicking the canvas or activating Send pulse creates a ripple. It uses procedural geometry without external artwork or network requests.
 
-The scene renders on demand and brings each layer forward with the chapter controls or depth slider. It follows scrolling until a manual selection takes over. Reduced-motion preferences disable scroll-follow and pointer motion; browsers without WebGL receive a CSS preview.
+The scene uses a demand render loop and pauses ambient motion when offscreen, when the tab is hidden, or when Pause is selected. Form controls and the Transformation slider work with the keyboard. It follows scrolling until a manual selection takes over. Reduced-motion preferences disable ambient motion, scroll-follow, pointer effects, and pulses; form controls select static poses. Browsers without WebGL receive a CSS signature preview with disabled interactive controls.
+
+Public project previews in `public/images/` are authentic website captures; `sources.json` records their source and scope. VALQUA's image shows the public product introduction, while the case study describes selected application modules. Project contribution text distinguishes personal work from the full team's product.
 
 No account keys, environment variables, or external services are required to run locally. A private Sites manifest, if supplied for the optional hosted preview, is deployment metadata and is not needed for local development.
 

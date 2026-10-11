@@ -1,8 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import Link from "next/link";
-import { Pause, Play } from "lucide-react";
+import { Orbit, Pause, Play, Sparkles, Type, Waves } from "lucide-react";
 import {
   Component,
   type CSSProperties,
@@ -14,116 +13,51 @@ import {
   useRef,
   useState,
 } from "react";
-import type { LayerProgressSource } from "./LayerScene";
+import type { KineticProgressSource } from "./KineticScene";
 
-const LayerScene = dynamic(() => import("./LayerScene"), {
+const KineticScene = dynamic(() => import("./KineticScene"), {
   ssr: false,
   loading: () => <SceneFallback loading />,
 });
 
 const chapters = [
   {
-    title: "Interface",
-    label: "UI",
+    title: "Signature",
+    label: "SIGNATURE",
     progress: 0,
-    helper: "Customer touchpoints",
-    description: "The experience people see, understand, and use.",
-    href: "/work/skyservice/",
-    relatedProject: "Vietnam Sky Service",
+    helper: "Assemble",
+    description: "A signature built from moving blocks.",
+    icon: Type,
   },
   {
-    title: "Admin",
-    label: "ADMIN",
+    title: "Orbit",
+    label: "ORBIT",
     progress: 0.55,
-    helper: "Everyday operations",
-    description: "The tools that keep everyday operations moving.",
-    href: "/work/evisa/",
-    relatedProject: "Global eVisa",
+    helper: "Unfold",
+    description: "The same blocks become an orbital ribbon.",
+    icon: Orbit,
   },
   {
-    title: "Data",
-    label: "DATA",
+    title: "Wave",
+    label: "WAVE",
     progress: 1,
-    helper: "Connected information",
-    description: "The information that connects an interface to its operations.",
-    href: "/work/evisa/",
-    relatedProject: "Global eVisa",
+    helper: "Flow",
+    description: "A flowing surface shaped by your cursor.",
+    icon: Waves,
   },
 ] as const;
 
 function SceneFallback({ loading = false }: { loading?: boolean }) {
   return (
     <div
-      className={`scene-fallback${loading ? " scene-fallback--loading" : ""}`}
+      className={`kinetic-fallback${loading ? " kinetic-fallback--loading" : ""}`}
       aria-hidden="true"
     >
-      <div className="fallback-window fallback-window--data">
-        <div className="fallback-window-bar">
-          <i />
-          <i />
-          <i />
-          <span>architecture / concept</span>
-        </div>
-        <div className="fallback-panel fallback-panel--data">
-          <span>SYSTEMS</span>
-          <strong>A system that connects.</strong>
-          <pre>
-            {
-              'interface → application → data\n\nconst product = {\n  experience: "thoughtful",\n  architecture: "maintainable"\n};'
-            }
-          </pre>
-        </div>
-      </div>
-      <div className="fallback-window fallback-window--admin">
-        <div className="fallback-window-bar">
-          <i />
-          <i />
-          <i />
-          <span>operations / demo</span>
-        </div>
-        <div className="fallback-panel fallback-panel--admin">
-          <span>CONTROL ROOM</span>
-          <strong>Service requests</strong>
-          <div className="fallback-metrics">
-            <b>
-              24<small>Active requests</small>
-            </b>
-            <b>
-              08<small>In progress</small>
-            </b>
-          </div>
-          <div className="fallback-row">
-            <span>DEMO-0042</span>
-            <span>In progress</span>
-          </div>
-          <div className="fallback-row">
-            <span>DEMO-0041</span>
-            <span>Completed</span>
-          </div>
-        </div>
-      </div>
-      <div className="fallback-window fallback-window--interface">
-        <div className="fallback-window-bar">
-          <i />
-          <i />
-          <i />
-          <span>interface / concept</span>
-        </div>
-        <div className="fallback-panel fallback-panel--interface">
-          <span>SKY / SERVICE</span>
-          <strong>
-            Arrive with
-            <br />
-            confidence.
-          </strong>
-          <p>
-            A smoother journey,
-            <br />
-            from the very first step.
-          </p>
-          <span className="fallback-button">Explore services ↗</span>
-          <div className="fallback-plane">↗</div>
-        </div>
+      <span className="kinetic-fallback-signature">VŨ</span>
+      <span className="kinetic-fallback-orbit" />
+      <span className="kinetic-fallback-orbit kinetic-fallback-orbit--second" />
+      <div className="kinetic-fallback-blocks">
+        {Array.from({ length: 16 }, (_, index) => <i key={index} style={{ left: `${8 + (index * 19) % 84}%`, top: `${5 + (index * 31) % 88}%` }} />)}
       </div>
     </div>
   );
@@ -172,7 +106,7 @@ export default function HeroExperience() {
   const [activeChapter, setActiveChapter] = useState(0);
   // Continuous input stays outside React. The canvas subscribes to redraws,
   // while chapter changes remain state for the accessible text and controls.
-  const progressSource = useMemo<LayerProgressSource>(() => ({
+  const progressSource = useMemo<KineticProgressSource>(() => ({
     get: () => progress.current,
     subscribe: (listener) => {
       progressListeners.current.add(listener);
@@ -183,6 +117,7 @@ export default function HeroExperience() {
   const [webGL, setWebGL] = useState<boolean | null>(null);
   const [sceneFailed, setSceneFailed] = useState(false);
   const [motionEnabled, setMotionEnabled] = useState(true);
+  const [pulseToken, setPulseToken] = useState(0);
   const [heroVisible, setHeroVisible] = useState(false);
   const [documentVisible, setDocumentVisible] = useState(true);
   const sceneId = useId();
@@ -209,7 +144,7 @@ export default function HeroExperience() {
       scrubber.current.value = String(percentage);
       scrubber.current.setAttribute(
         "aria-valuetext",
-        `${percentage} percent through the layers, ${chapters[chapter].title} view`,
+        `${percentage} percent transformed, ${chapters[chapter].title} form`,
       );
     }
     if (chapter !== activeChapterRef.current) {
@@ -222,10 +157,6 @@ export default function HeroExperience() {
     manualProgress.current = true;
     updateProgress(next);
   }, [updateProgress]);
-  const selectLayer = useCallback((index: 0 | 1 | 2) => {
-    selectProgress(chapters[index].progress);
-  }, [selectProgress]);
-
   useEffect(() => {
     setWebGL(browserSupportsWebGL());
     const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -260,6 +191,10 @@ export default function HeroExperience() {
   }, []);
 
   useEffect(() => {
+    if (!interactiveScene) {
+      updateProgress(0);
+      return;
+    }
     if (reducedMotion) return;
     let animationFrame = 0;
     const update = () => {
@@ -268,7 +203,7 @@ export default function HeroExperience() {
       const bounds = stage.current.getBoundingClientRect();
       const start = Math.min(140, window.innerHeight * 0.2);
       const travel = Math.max(260, Math.min(440, bounds.height * 0.8));
-      const next = Math.max(0, Math.min(1, (start - bounds.top) / travel));
+      const next = window.scrollY < 20 ? 0 : Math.max(0, Math.min(1, (start - bounds.top) / travel));
       if (!manualProgress.current && Math.abs(progress.current - next) > 0.002)
         updateProgress(next);
     };
@@ -330,25 +265,25 @@ export default function HeroExperience() {
       window.removeEventListener("keydown", resumeFromKeyboardScroll);
       window.cancelAnimationFrame(animationFrame);
     };
-  }, [reducedMotion, updateProgress]);
+  }, [interactiveScene, reducedMotion, updateProgress]);
 
   return (
     <div
-      className="hero-experience"
+      className="hero-experience kinetic-experience"
       ref={experience}
       data-chapter={currentChapter.label.toLowerCase()}
       data-motion={motionState}
       style={{ "--scene-progress": 0 } as CSSProperties}
     >
       <div className="scene-header">
-        <span className="scene-eyebrow">Inside the web / 3 layers</span>
+        <span className="scene-eyebrow">A signature in motion</span>
         <div className="scene-header-actions">
           <span className="scene-status">
             <i aria-hidden="true" />
             {webGL === null
               ? "Preparing preview"
               : !interactiveScene
-                ? "Concept preview"
+                ? "Static artwork"
                 : reducedMotion
                   ? "Reduced motion"
                   : !motionEnabled
@@ -378,7 +313,7 @@ export default function HeroExperience() {
         ref={stage}
         id={sceneId}
         role="img"
-        aria-label="An illustrative product, from interface to operations and data"
+        aria-label={interactiveScene ? `A kinetic sculpture of VŨ, currently in ${currentChapter.title.toLowerCase()} form` : "A static typographic artwork of VŨ"}
         aria-describedby={captionId}
       >
         <div className="scene-grid" aria-hidden="true" />
@@ -388,47 +323,34 @@ export default function HeroExperience() {
               fallback={<SceneFallback />}
               onError={() => setSceneFailed(true)}
             >
-              <LayerScene
+              <KineticScene
                 progressSource={progressSource}
                 reducedMotion={reducedMotion}
                 animationEnabled={animationEnabled}
-                onSelectLayer={selectLayer}
+                pulseToken={pulseToken}
               />
             </SceneErrorBoundary>
           ) : (
             <SceneFallback loading={webGL === null} />
           )}
         </div>
-        {chapters.map((chapter, index) => (
-          <span
-            key={chapter.label}
-            className={`scene-layer-label scene-layer-label--${chapter.label.toLowerCase()}${activeChapter === index ? " is-active" : ""}`}
-            aria-hidden="true"
-          >
-            <span className="scene-layer-number">0{index + 1}</span>
-            <span>{chapter.title}</span>
-          </span>
-        ))}
-        <span className="scene-axis" aria-hidden="true">
-          X<br />Y<br />Z
-        </span>
         <span className="scene-interaction-hint" aria-hidden="true">
           {reducedMotion && interactiveScene ? (
-            "Reduced motion · Select a layer"
+            "Reduced motion · Choose a form"
           ) : interactiveScene ? (
             <>
-              <span className="scene-hint-pointer">{motionEnabled ? "Move to tilt · Click a layer" : "Motion paused · Click a layer"}</span>
-              <span className="scene-hint-touch">{motionEnabled ? "Tap a layer to explore" : "Motion paused · Tap a layer"}</span>
+              <span className="scene-hint-pointer">{motionEnabled ? "Move to bend · Click to pulse" : "Paused · Choose a form"}</span>
+              <span className="scene-hint-touch">{motionEnabled ? "Tap to send a pulse" : "Paused · Choose a form"}</span>
             </>
           ) : (
-            "Use the controls to explore"
+            "A signature in blocks"
           )}
         </span>
       </div>
       <div
         className="scene-controls"
         role="group"
-        aria-label="Explore the product layers"
+        aria-label="Choose an artwork form"
       >
         {chapters.map((chapter, index) => (
           <button
@@ -437,10 +359,11 @@ export default function HeroExperience() {
             className={`scene-control${activeChapter === index ? " is-active" : ""}`}
             aria-pressed={activeChapter === index}
             aria-controls={sceneId}
+            disabled={!interactiveScene}
             onPointerDown={() => { manualProgress.current = true; }}
             onClick={() => selectProgress(chapter.progress)}
           >
-            <span className="scene-control-number">0{index + 1}</span>
+            <chapter.icon className="kinetic-mode-icon" size={18} strokeWidth={1.5} aria-hidden="true" />
             <span className="scene-control-copy">
               <strong>{chapter.title}</strong>
               <span>{chapter.helper}</span>
@@ -453,7 +376,7 @@ export default function HeroExperience() {
       </div>
       <div className="scene-progress">
         <div className="scene-progress-label">
-          <label htmlFor={scrubberId}>Explore layer depth</label>
+          <label htmlFor={scrubberId}>Transformation</label>
           <span ref={progressLabel} aria-hidden="true">0%</span>
         </div>
         <input
@@ -464,9 +387,10 @@ export default function HeroExperience() {
           min={0}
           max={100}
           step={1}
+          disabled={!interactiveScene}
           defaultValue={0}
           aria-controls={sceneId}
-          aria-valuetext="0 percent through the layers, Interface view"
+          aria-valuetext="0 percent transformed, Signature form"
           onPointerDown={() => { manualProgress.current = true; }}
           onKeyDown={(event) => {
             if (
@@ -481,21 +405,22 @@ export default function HeroExperience() {
       <div className="scene-caption">
         <div className="scene-caption-copy" aria-live="polite" aria-atomic="true">
           <span className="scene-caption-current">
-            0{activeChapter + 1} / {currentChapter.title}
+            {interactiveScene ? `${currentChapter.title} form` : "Signature preview"}
           </span>
           <span id={captionId} className="scene-caption-description">
-            {currentChapter.description}
+            {interactiveScene ? currentChapter.description : webGL === null ? "Preparing the kinetic sculpture." : "A static signature preview."}
           </span>
         </div>
         <div className="scene-caption-actions">
-          <Link
-            href={currentChapter.href}
-            className="scene-related-work scene-evidence-link"
-            aria-label={`View related work: ${currentChapter.relatedProject}`}
+          <button
+            type="button"
+            className="kinetic-pulse"
+            aria-controls={sceneId}
+            disabled={!animationEnabled}
+            onClick={() => setPulseToken((token) => token + 1)}
           >
-            View related work <span aria-hidden="true">↗</span>
-          </Link>
-          <span className="scene-caption-note">Illustrative UI · sample data</span>
+            <Sparkles size={15} aria-hidden="true" /> Send pulse
+          </button>
         </div>
       </div>
     </div>
