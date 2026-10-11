@@ -7,11 +7,14 @@ import {
   Component,
   type CSSProperties,
   type ReactNode,
+  useCallback,
   useEffect,
   useId,
+  useMemo,
   useRef,
   useState,
 } from "react";
+import type { LayerProgressSource } from "./LayerScene";
 
 const LayerScene = dynamic(() => import("./LayerScene"), {
   ssr: false,
@@ -160,8 +163,22 @@ function browserSupportsWebGL() {
 export default function HeroExperience() {
   const experience = useRef<HTMLDivElement>(null);
   const stage = useRef<HTMLDivElement>(null);
+  const scrubber = useRef<HTMLInputElement>(null);
+  const progressLabel = useRef<HTMLSpanElement>(null);
   const manualProgress = useRef(false);
-  const [progress, setProgress] = useState(0);
+  const progress = useRef(0);
+  const progressListeners = useRef(new Set<() => void>());
+  const activeChapterRef = useRef(0);
+  const [activeChapter, setActiveChapter] = useState(0);
+  // Continuous input stays outside React. The canvas subscribes to redraws,
+  // while chapter changes remain state for the accessible text and controls.
+  const progressSource = useMemo<LayerProgressSource>(() => ({
+    get: () => progress.current,
+    subscribe: (listener) => {
+      progressListeners.current.add(listener);
+      return () => { progressListeners.current.delete(listener); };
+    },
+  }), []);
   const [reducedMotion, setReducedMotion] = useState(true);
   const [webGL, setWebGL] = useState<boolean | null>(null);
   const [sceneFailed, setSceneFailed] = useState(false);
@@ -171,9 +188,7 @@ export default function HeroExperience() {
   const sceneId = useId();
   const captionId = `${sceneId}-caption`;
   const scrubberId = `${sceneId}-scrubber`;
-  const activeChapter = progress >= 0.8 ? 2 : progress >= 0.25 ? 1 : 0;
   const currentChapter = chapters[activeChapter];
-  const percentage = Math.round(progress * 100);
   const interactiveScene = webGL === true && !sceneFailed;
   const animationEnabled =
     interactiveScene && motionEnabled && !reducedMotion && heroVisible && documentVisible;
@@ -182,10 +197,34 @@ export default function HeroExperience() {
     : animationEnabled
       ? "playing"
       : "paused";
-  const selectProgress = (next: number) => {
+  const updateProgress = useCallback((next: number) => {
+    const value = Math.max(0, Math.min(1, next));
+    if (value === progress.current) return;
+    progress.current = value;
+    const chapter = value >= 0.8 ? 2 : value >= 0.25 ? 1 : 0;
+    const percentage = Math.round(value * 100);
+    experience.current?.style.setProperty("--scene-progress", String(value));
+    if (progressLabel.current) progressLabel.current.textContent = `${percentage}%`;
+    if (scrubber.current) {
+      scrubber.current.value = String(percentage);
+      scrubber.current.setAttribute(
+        "aria-valuetext",
+        `${percentage} percent through the layers, ${chapters[chapter].title} view`,
+      );
+    }
+    if (chapter !== activeChapterRef.current) {
+      activeChapterRef.current = chapter;
+      setActiveChapter(chapter);
+    }
+    progressListeners.current.forEach((listener) => listener());
+  }, []);
+  const selectProgress = useCallback((next: number) => {
     manualProgress.current = true;
-    setProgress(next);
-  };
+    updateProgress(next);
+  }, [updateProgress]);
+  const selectLayer = useCallback((index: 0 | 1 | 2) => {
+    selectProgress(chapters[index].progress);
+  }, [selectProgress]);
 
   useEffect(() => {
     setWebGL(browserSupportsWebGL());
@@ -230,11 +269,8 @@ export default function HeroExperience() {
       const start = Math.min(140, window.innerHeight * 0.2);
       const travel = Math.max(260, Math.min(440, bounds.height * 0.8));
       const next = Math.max(0, Math.min(1, (start - bounds.top) / travel));
-      setProgress((current) =>
-        !manualProgress.current && Math.abs(current - next) > 0.002
-          ? next
-          : current,
-      );
+      if (!manualProgress.current && Math.abs(progress.current - next) > 0.002)
+        updateProgress(next);
     };
     const scheduleUpdate = () => {
       if (!manualProgress.current && !animationFrame)
@@ -294,7 +330,7 @@ export default function HeroExperience() {
       window.removeEventListener("keydown", resumeFromKeyboardScroll);
       window.cancelAnimationFrame(animationFrame);
     };
-  }, [reducedMotion]);
+  }, [reducedMotion, updateProgress]);
 
   return (
     <div
@@ -302,7 +338,7 @@ export default function HeroExperience() {
       ref={experience}
       data-chapter={currentChapter.label.toLowerCase()}
       data-motion={motionState}
-      style={{ "--scene-progress": progress } as CSSProperties}
+      style={{ "--scene-progress": 0 } as CSSProperties}
     >
       <div className="scene-header">
         <span className="scene-eyebrow">Inside the web / 3 layers</span>
@@ -342,7 +378,6 @@ export default function HeroExperience() {
         ref={stage}
         id={sceneId}
         role="img"
-        style={{ "--scene-progress": progress } as CSSProperties}
         aria-label="An illustrative product, from interface to operations and data"
         aria-describedby={captionId}
       >
@@ -354,10 +389,10 @@ export default function HeroExperience() {
               onError={() => setSceneFailed(true)}
             >
               <LayerScene
-                progress={progress}
+                progressSource={progressSource}
                 reducedMotion={reducedMotion}
                 animationEnabled={animationEnabled}
-                onSelectLayer={(index: 0 | 1 | 2) => selectProgress(chapters[index].progress)}
+                onSelectLayer={selectLayer}
               />
             </SceneErrorBoundary>
           ) : (
@@ -419,18 +454,19 @@ export default function HeroExperience() {
       <div className="scene-progress">
         <div className="scene-progress-label">
           <label htmlFor={scrubberId}>Explore layer depth</label>
-          <span aria-hidden="true">{percentage}%</span>
+          <span ref={progressLabel} aria-hidden="true">0%</span>
         </div>
         <input
           id={scrubberId}
+          ref={scrubber}
           className="scene-scrubber"
           type="range"
           min={0}
           max={100}
           step={1}
-          value={percentage}
+          defaultValue={0}
           aria-controls={sceneId}
-          aria-valuetext={`${percentage} percent through the layers, ${currentChapter.title} view`}
+          aria-valuetext="0 percent through the layers, Interface view"
           onPointerDown={() => { manualProgress.current = true; }}
           onKeyDown={(event) => {
             if (

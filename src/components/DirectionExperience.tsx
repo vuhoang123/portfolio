@@ -15,7 +15,7 @@ export default function DirectionExperience() {
     >
       <header className="direction-career-header" data-motion-reveal="">
         <div>
-          <p className="direction-career-kicker">03 / Experience / 2022 — now</p>
+          <p className="direction-career-kicker">Experience / 2022 to now</p>
           <h2 id="direction-journey-heading" className="direction-career-heading">
             Built with teams.
           </h2>
@@ -53,14 +53,13 @@ export default function DirectionExperience() {
               <div className="direction-career-identity">
                 <div className="direction-career-year-row" aria-hidden="true">
                   <span className="direction-career-year">{startYear}</span>
-                  <span className="direction-career-index">0{index + 1}</span>
                 </div>
                 <h3 className="direction-career-company" id={companyHeadingId}>
                   {experience.company}
                 </h3>
                 <p className="direction-career-role">{experience.role}</p>
                 <p className="direction-career-period">
-                  {experience.period.replace(" - ", " — ")}
+                  {experience.period}
                 </p>
                 {isCurrent && (
                   <span className="direction-career-current">

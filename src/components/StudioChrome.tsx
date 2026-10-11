@@ -66,8 +66,8 @@ export function StudioHeader() {
       <header ref={header} className="direction-header direction-container studio-chrome-header">
         <Link className="direction-wordmark" href="/" aria-label="Hoàng Anh Vũ, home" onClick={close}>VŨ<span aria-hidden="true">*</span></Link>
         <nav className="studio-desktop-nav" aria-label="Main navigation">
-          {navigation.map((item, index) => (
-            <Link href={item.href} key={item.href} onClick={close}>{item.label}{index === 0 && <span aria-hidden="true">04</span>}</Link>
+          {navigation.map((item) => (
+            <Link href={item.href} key={item.href} onClick={close}>{item.label}</Link>
           ))}
         </nav>
         <Link href="/#contact" className="direction-contact-button studio-chrome-contact-button" data-magnetic onClick={close}>
@@ -102,7 +102,7 @@ export function StudioFooter() {
         <div className="direction-contact-top" data-motion-reveal><span className="direction-eyebrow">Open to frontend & full-stack roles</span><span>Ho Chi Minh City, VN</span></div>
         <div className="direction-contact-heading" data-motion-reveal>
           <h2 id="studio-contact-title">Let’s make<br /> <span>what’s next.</span></h2>
-          <a href="mailto:hoanganhvu.dev@gmail.com" className="direction-mail-circle" aria-label="Email Hoàng Anh Vũ" data-magnetic><span data-magnetic-content><ArrowUpRight size={46} aria-hidden="true" /><span>Get in touch</span></span></a>
+          <a href="mailto:hoanganhvu.dev@gmail.com" className="direction-mail-circle" aria-label="Email Hoàng Anh Vũ" data-magnetic><span data-magnetic-content><ArrowUpRight size={46} aria-hidden="true" /><span>Let’s talk</span></span></a>
         </div>
         <a href="mailto:hoanganhvu.dev@gmail.com" className="direction-email" data-motion-reveal>hoanganhvu.dev@gmail.com<ArrowUpRight size={23} aria-hidden="true" /></a>
         <div className="direction-footer">

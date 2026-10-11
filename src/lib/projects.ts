@@ -87,7 +87,7 @@ export const projects: Project[] = [
     stack: ["Next.js", "Laravel"],
     description:
       "A customer-facing website for airport and travel services, with substantial full-stack participation.",
-    headline: "A clearer entry point to airport and travel services.",
+    headline: "An entry point to airport and travel services.",
     year: "Current work",
     externalUrl: "https://vietnamskyservice.com/en",
     image: "/images/skyservice.webp",

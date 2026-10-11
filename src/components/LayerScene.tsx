@@ -2,7 +2,7 @@
 
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { RoundedBox } from "@react-three/drei";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { memo, useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import {
   createLayerMarkerTexture,
@@ -11,8 +11,12 @@ import {
   type LayerKind,
 } from "./scene-textures";
 
+export type LayerProgressSource = {
+  get: () => number;
+  subscribe: (listener: () => void) => () => void;
+};
 type LayerSceneProps = {
-  progress?: number;
+  progressSource: LayerProgressSource;
   reducedMotion?: boolean;
   animationEnabled?: boolean;
   onSelectLayer?: (index: 0 | 1 | 2) => void;
@@ -86,7 +90,7 @@ function fitCameraDistance(aspect: number, progress: number) {
   return distance;
 }
 
-function SceneContents({ progress = 0, reducedMotion = false, animationEnabled = true, onSelectLayer }: LayerSceneProps) {
+function SceneContents({ progressSource, reducedMotion = false, animationEnabled = true, onSelectLayer }: LayerSceneProps) {
   const assembly = useRef<THREE.Group>(null);
   const orbit = useRef<THREE.Group>(null);
   const particles = useRef<(THREE.Mesh | null)[]>([]);
@@ -100,10 +104,19 @@ function SceneContents({ progress = 0, reducedMotion = false, animationEnabled =
   const camera = useThree((state) => state.camera);
   const canvas = useThree((state) => state.gl.domElement);
   const motionAllowed = animationEnabled && !reducedMotion;
-  const targetCameraDistance = useMemo(() => fitCameraDistance(size.width / Math.max(size.height, 1), progress), [size.width, size.height, progress]);
-  const cameraDistance = useRef(targetCameraDistance);
+  const cameraDistance = useRef(10);
 
-  useEffect(() => { cameraDistance.current = targetCameraDistance; invalidate(); }, [targetCameraDistance, invalidate]);
+  useEffect(() => {
+    const update = () => {
+      cameraDistance.current = fitCameraDistance(
+        size.width / Math.max(size.height, 1),
+        progressSource.get(),
+      );
+      invalidate();
+    };
+    update();
+    return progressSource.subscribe(update);
+  }, [progressSource, size.width, size.height, invalidate]);
 
   useEffect(() => {
     const created: SceneTextures = {
@@ -125,11 +138,11 @@ function SceneContents({ progress = 0, reducedMotion = false, animationEnabled =
     invalidate();
   }, [camera, size.width, size.height, invalidate]);
 
-  useEffect(() => invalidate(), [progress, motionAllowed, textures, invalidate]);
+  useEffect(() => invalidate(), [motionAllowed, textures, invalidate]);
 
   useFrame((state, delta) => {
     if (!assembly.current) return;
-    const { from, to, amount } = chapterTransition(progress);
+    const { from, to, amount } = chapterTransition(progressSource.get());
     const step = Math.min(delta, 0.05);
     const alpha = motionAllowed ? 1 - Math.exp(-8 * step) : 1;
     if (motionAllowed && textures) {
@@ -263,7 +276,7 @@ function SceneContents({ progress = 0, reducedMotion = false, animationEnabled =
   );
 }
 
-export default function LayerScene({ progress = 0, reducedMotion = false, animationEnabled = true, onSelectLayer }: LayerSceneProps) {
+export default memo(function LayerScene({ progressSource, reducedMotion = false, animationEnabled = true, onSelectLayer }: LayerSceneProps) {
   return (
     <Canvas
       frameloop="demand"
@@ -272,7 +285,7 @@ export default function LayerScene({ progress = 0, reducedMotion = false, animat
       gl={{ antialias: true, alpha: true, powerPreference: "low-power" }}
       style={{ background: "transparent", width: "100%", height: "100%" }}
     >
-      <SceneContents progress={progress} reducedMotion={reducedMotion} animationEnabled={animationEnabled} onSelectLayer={onSelectLayer} />
+      <SceneContents progressSource={progressSource} reducedMotion={reducedMotion} animationEnabled={animationEnabled} onSelectLayer={onSelectLayer} />
     </Canvas>
   );
-}
+});

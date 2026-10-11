@@ -1,7 +1,7 @@
 import type { CSSProperties } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowDown, ArrowLeft, ArrowUpRight } from "lucide-react";
+import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import HeroExperience from "@/components/HeroExperience";
 import DirectionExperience from "@/components/DirectionExperience";
 import DirectionMotion from "@/components/DirectionMotion";
@@ -16,9 +16,8 @@ const projectScopes: Record<string, string> = {
 };
 
 const tools = [
-  { number: "01", title: "Interfaces", stack: "React · Next.js · Vue 2 / 3", description: "Customer-facing websites and practical reporting interfaces." },
-  { number: "02", title: "Operations", stack: "PHP · Laravel · MySQL", description: "Admin systems, order management, and configurable public content." },
-  { number: "03", title: "Connection", stack: "Frontend + backend integration", description: "Understanding the workflow behind the screen, then making it usable." },
+  { title: "Interfaces", stack: "React / Next.js / Vue 2 & 3", description: "Customer-facing websites and practical reporting interfaces." },
+  { title: "Operations", stack: "PHP / Laravel / MySQL", description: "Admin systems, order management, and configurable public content." },
 ];
 
 export default function StudioHome({ preview = false }: { preview?: boolean }) {
@@ -36,33 +35,31 @@ export default function StudioHome({ preview = false }: { preview?: boolean }) {
       <main id="main" tabIndex={-1}>
       <section className="direction-hero direction-container" aria-labelledby="direction-hero-title">
         <div className="direction-hero-meta">
-          <span><i />Hoàng Anh Vũ / Full-stack engineer</span>
-          <span>Ho Chi Minh City, VN</span>
+          <span className="direction-identity">Hoàng Anh Vũ<strong>Frontend / Full-stack Engineer</strong></span>
         </div>
         <div className="direction-hero-composition">
           <div className="direction-hero-copy">
-            <span className="direction-eyebrow">Interfaces + systems</span>
-            <h1 id="direction-hero-title" aria-label="Beyond the interface.">Beyond<br /><span className="direction-outline">the</span>{" "}<br /><span className="direction-blue">interface.</span></h1>
+            <span className="direction-hero-stack">React / Next.js / Vue / Laravel</span>
+            <h1 id="direction-hero-title" aria-label="Beyond the interface.">Beyond <span className="direction-outline">the</span><br /><span className="direction-blue">interface.</span></h1>
             <p>I build the interfaces people use<br />and the systems teams run.</p>
             <a href="#work" className="direction-round-link" data-magnetic>
-              <span data-magnetic-content><span>Explore<br />the work</span><ArrowDown size={24} aria-hidden="true" /></span>
+              <span data-magnetic-content>View work<ArrowUpRight size={21} aria-hidden="true" /></span>
             </a>
           </div>
           <HeroExperience />
         </div>
-        <div className="direction-hero-foot"><span>Frontend craft. Full-stack thinking.</span><span>Scroll to discover <ArrowDown size={14} aria-hidden="true" /></span></div>
       </section>
 
       <section id="work" className="direction-work direction-container" aria-labelledby="direction-work-title">
         <div className="direction-section-heading" data-motion-reveal>
-          <div><span className="direction-eyebrow">01 / Selected work</span><h2 id="direction-work-title">Made for<br /><span>real workflows.</span><sup>04</sup></h2></div>
+          <h2 id="direction-work-title">Selected <span>work.</span></h2>
           <p>Public websites. Internal operations.<br />A closer look at my contribution.</p>
         </div>
         <div className="direction-work-grid">
           {projects.map((project, index) => (
             <article className="direction-project" key={project.slug} data-motion-reveal style={{ "--reveal-delay": `${(index % 2) * 90}ms`, "--project-accent": project.accent } as CSSProperties}>
               <Link href={`/work/${project.slug}/`} className="direction-project-link" aria-label={`View ${project.title} case study`}>
-                <div className="direction-project-index"><span>{project.number} / {project.category}</span><ArrowUpRight size={23} aria-hidden="true" /></div>
+                <div className="direction-project-index"><span>{project.category}</span><ArrowUpRight size={23} aria-hidden="true" /></div>
                 <div className="direction-project-visual" data-motion-tilt>
                   <div className="direction-project-glow" />
                   <div className="direction-project-browser" data-motion-parallax>
@@ -83,17 +80,16 @@ export default function StudioHome({ preview = false }: { preview?: boolean }) {
       <section id="about" className="direction-about" aria-labelledby="direction-about-title">
         <div className="direction-container">
           <div className="direction-about-intro" data-motion-reveal>
-            <span className="direction-eyebrow">02 / How I think</span>
             <h2 id="direction-about-title">A good interface<br />goes <em>deeper.</em></h2>
             <div className="direction-about-bottom">
               <p>I like understanding how a product works, from what a user sees to how a team manages it. My work connects frontend craft with the everyday systems behind the screen.</p>
-              <span className="direction-orbit-mark" aria-hidden="true"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="45" /><ellipse cx="60" cy="60" rx="22" ry="45" /><ellipse cx="60" cy="60" rx="45" ry="15" /><path d="M60 15V105M15 60H105" /></svg><ArrowUpRight size={28} /></span>
+              <a className="direction-about-repository" href="https://github.com/vuhoang123" target="_blank" rel="noreferrer">Explore my GitHub <ArrowUpRight size={22} aria-hidden="true" /></a>
             </div>
           </div>
           <div className="direction-capabilities">
             {tools.map((tool, index) => (
               <article key={tool.title} data-motion-reveal style={{ "--reveal-delay": `${index * 70}ms` } as CSSProperties}>
-                <span>{tool.number}</span><h3>{tool.title}</h3><p>{tool.description}</p><small>{tool.stack}</small>
+                <h3>{tool.title}</h3><p>{tool.description}</p><small>{tool.stack}</small>
               </article>
             ))}
           </div>
@@ -101,7 +97,7 @@ export default function StudioHome({ preview = false }: { preview?: boolean }) {
             <div>
               <span className="direction-eyebrow">Education / 2019–2023</span>
               <p>Bachelor of Computer Science</p>
-              <span>VNUHCM — University of Science</span>
+              <span>VNUHCM - University of Science</span>
             </div>
             <a href="https://www.linkedin.com/in/hoanganhvu2405/" target="_blank" rel="noreferrer">More on LinkedIn <ArrowUpRight size={20} aria-hidden="true" /></a>
           </div>
@@ -112,7 +108,6 @@ export default function StudioHome({ preview = false }: { preview?: boolean }) {
 
       <section className="direction-more direction-container" aria-labelledby="direction-more-title">
         <div className="direction-more-heading" data-motion-reveal>
-          <span className="direction-eyebrow">04 / More things I’ve built</span>
           <h2 id="direction-more-title">Beyond the highlights.</h2>
         </div>
         <div className="direction-more-grid">
