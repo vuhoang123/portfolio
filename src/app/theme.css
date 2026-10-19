@@ -1,0 +1,154 @@
+/* The same studio, after hours. Keep screenshots and brand marks true to source. */
+html[data-theme="light"] { color-scheme: light; }
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #11161d;
+  --ink: #f0f2ee;
+  --muted: #b1bac5;
+  --line: #35404d;
+  --blue: #8da7ff;
+  --theme-surface: #1a222d;
+  --theme-raised: #222e3b;
+  --theme-primary: #2858ff;
+}
+
+.studio-header-actions { display: flex; align-items: center; gap: 10px; flex: none; }
+.studio-chrome-header .theme-toggle {
+  display: inline-flex; align-items: center; justify-content: center; flex: none;
+  width: 44px; height: 44px; padding: 0; border: 1px solid #cdd2c7;
+  border-radius: 50%; color: #191d19; background: transparent;
+  transition: color 200ms, background 200ms, border-color 200ms;
+}
+.studio-chrome-header .theme-toggle:hover { color: #2858ff; background: #e8ecf9; border-color: #9bafea; }
+.theme-toggle .theme-toggle-light { display: none; }
+html[data-theme="dark"] .theme-toggle .theme-toggle-dark { display: none; }
+html[data-theme="dark"] .theme-toggle .theme-toggle-light { display: block; }
+
+html[data-theme="dark"] .direction-page { color: var(--ink); background: var(--paper); }
+html[data-theme="dark"]::selection,
+html[data-theme="dark"] ::selection { color: #fff; background: #2858ff; }
+html[data-theme="dark"] :is(.direction-page, .studio-chrome-header, .studio-chrome-contact) :is(a, button):focus-visible,
+html[data-theme="dark"] .studio-chrome-skip:focus-visible,
+html[data-theme="dark"] .application-experience .scene-stage:focus-visible { outline-color: #8da7ff; }
+html[data-theme="dark"] .studio-chrome-skip { color: #11161d; background: #f0f2ee; }
+
+/* Header and first impression. */
+html[data-theme="dark"] .direction-wordmark span,
+html[data-theme="dark"] .direction-blue { color: #8da7ff; }
+html[data-theme="dark"] .direction-outline { -webkit-text-stroke-color: #f0f2ee; }
+html[data-theme="dark"] .direction-contact-button,
+html[data-theme="dark"] .studio-chrome-header .theme-toggle,
+html[data-theme="dark"] .studio-chrome-header .studio-menu-toggle { color: #f0f2ee; background: transparent; border-color: #465261; }
+html[data-theme="dark"] .direction-contact-button:hover,
+html[data-theme="dark"] .studio-chrome-header .studio-menu-toggle:is(:hover, [aria-expanded="true"]) { color: #fff; background: #2858ff; border-color: #2858ff; }
+html[data-theme="dark"] .studio-chrome-header .theme-toggle:hover { color: #b9c9ff; background: #222e3b; border-color: #8da7ff; }
+html[data-theme="dark"] .direction-hero-meta,
+html[data-theme="dark"] .direction-hero-foot,
+html[data-theme="dark"] .direction-work { border-color: #35404d; }
+html[data-theme="dark"] :is(.direction-identity strong, .direction-hero-stack, .direction-hero-copy p, .direction-hero-foot) { color: #b1bac5; }
+html[data-theme="dark"] .direction-round-link { color: #fff; background: #2858ff; }
+html[data-theme="dark"] .direction-round-link:hover { background: #3a66ff; }
+html[data-theme="dark"] .direction-study-bar { color: #c3ccd6; background: #222e3b; }
+html[data-theme="dark"] .direction-study-bar a:hover { color: #a8bcff; }
+
+/* The canvas stays transparent; its materials use the same palette in Three.js. */
+html[data-theme="dark"] .direction-page :is(.scene-eyebrow, .scene-status, .scene-progress-label, .scene-caption, .scene-caption-note),
+html[data-theme="dark"] .kinetic-experience .scene-interaction-hint { color: #b1bac5; }
+html[data-theme="dark"] .scene-stage::before { background: radial-gradient(ellipse at 61% 52%, #2858ff26, #2858ff08 50%, transparent 74%); }
+html[data-theme="dark"] .scene-grid { background-image: linear-gradient(#8b9eb326 1px, transparent 1px), linear-gradient(90deg, #8b9eb326 1px, transparent 1px); }
+
+/* Selected work: dark image mats, untouched public website previews. */
+html[data-theme="dark"] .direction-section-heading h2 > span { color: #9da9b6; }
+html[data-theme="dark"] .direction-section-heading sup { color: #8da7ff; }
+html[data-theme="dark"] :is(.direction-section-heading > p, .direction-project-index, .direction-project-name > span, .direction-project-scope, .direction-public-note) { color: #b1bac5; }
+html[data-theme="dark"] .direction-project-index svg { color: #f0f2ee; }
+html[data-theme="dark"] .direction-public-note { border-color: #35404d; }
+html[data-theme="dark"] .direction-project-visual { background: color-mix(in srgb, var(--project-accent) 14%, #1a222d); }
+html[data-theme="dark"] .direction-project-glow { background: radial-gradient(circle at var(--glow-x, 50%) var(--glow-y, 50%), #a9beff1f, transparent 70%); }
+html[data-theme="dark"] .direction-project-browser { box-shadow: 0 16px 32px #0005; }
+html[data-theme="dark"] .direction-project-browser-bar { color: #c3ccd6; background: #26313d; }
+html[data-theme="dark"] .direction-project-browser-bar i { background: #768595; }
+html[data-theme="dark"] .direction-view-badge { color: #fff; background: #2858ff; }
+html[data-theme="dark"] .direction-project-link:is(:hover, :focus-visible) :is(h3, .direction-project-index svg) { color: #8da7ff; }
+html[data-theme="dark"] .direction-project-stack .tech-label { color: #c6cdd7; border-color: #3d4957; }
+
+/* Original-color logos remain legible without filters or recoloring. The ring
+   creates a small white plate without changing badge widths between themes. */
+html[data-theme="dark"] .direction-page img.tech-icon { background: #fff; border-radius: 3px; box-shadow: 0 0 0 3px #fff; }
+html[data-theme="dark"] .direction-about img.tech-icon { box-shadow: none; }
+html[data-theme="dark"] .direction-career-stack li:hover { color: #b5c5ff; border-color: #8da7ff; }
+
+/* Retain the blue chapter as a quieter cobalt field. */
+html[data-theme="dark"] .direction-about { background: #1c3caa; color: #fff; }
+html[data-theme="dark"] :is(.direction-education, .direction-education a, .direction-about-repository, .direction-capabilities article, .tech-marquee) { border-color: #849be1; }
+html[data-theme="dark"] .direction-about :is(a, button):focus-visible,
+html[data-theme="dark"] .direction-about .tech-marquee:focus-visible { outline-color: #fff; }
+
+/* Experience uses semantic local variables, including all copy and rules. */
+html[data-theme="dark"] .direction-experience {
+  --direction-career-paper: #11161d;
+  --direction-career-ink: #f0f2ee;
+  --direction-career-cobalt: #8da7ff;
+  --direction-career-muted: #b1bac5;
+  --direction-career-line: #35404d;
+}
+html[data-theme="dark"] .direction-career-chapters { border-top-color: #76818c; }
+html[data-theme="dark"] .direction-career-team-note { background: #1a2743; }
+html[data-theme="dark"] .direction-career-note-label { color: #a9beff; }
+html[data-theme="dark"] .direction-career-preview-link { border-color: #465261; box-shadow: 0 7px 20px #0004; }
+html[data-theme="dark"] .direction-career-preview-bar { color: #c3ccd6; background: #26313d; border-color: #465261; }
+html[data-theme="dark"] .direction-career-preview-dots i { border-color: #98a6b6; }
+html[data-theme="dark"] .direction-career-preview-link:is(:hover, :focus-visible) { box-shadow: 0 11px 25px #0006; }
+html[data-theme="dark"] .direction-more-card { border-color: #465261; }
+html[data-theme="dark"] .direction-more-card::before { background: #8da7ff; }
+html[data-theme="dark"] :is(.direction-more-card > span, .direction-more-card p) { color: #b1bac5; }
+html[data-theme="dark"] .direction-more-link:is(:hover, :focus-visible) h3 { color: #8da7ff; }
+
+/* Case studies: readable metadata, module diagrams and preview chrome. */
+html[data-theme="dark"] .study-main {
+  --study-paper: #11161d;
+  --study-ink: #f0f2ee;
+  --study-cobalt: #8da7ff;
+  --study-muted: #b1bac5;
+  --study-line: #35404d;
+}
+html[data-theme="dark"] .study-main .study-visit:is(:hover, :focus-visible) { color: #fff; background: #2858ff; border-color: #2858ff; }
+html[data-theme="dark"] .study-main :is(.study-preview-stage, .study-next-visual) { background: #222e3b; }
+html[data-theme="dark"] .study-main .study-preview-glow { background: radial-gradient(circle at var(--glow-x, 50%) var(--glow-y, 50%), #a9beff1f, transparent 72%); }
+html[data-theme="dark"] .study-main .study-browser { border-color: #465261; box-shadow: 0 22px 50px #0005; }
+html[data-theme="dark"] .study-main .study-preview-stage:hover .study-browser { box-shadow: 0 26px 60px #0006; }
+html[data-theme="dark"] .study-main .study-browser-bar { color: #c3ccd6; background: #26313d; border-color: #465261; }
+html[data-theme="dark"] .study-main :is(.study-browser-public, .study-next-visual > span) { color: #c3ccd6; }
+html[data-theme="dark"] .study-main .study-content .study-section--flow { color: #f0f2ee; background: #1a222d; box-shadow: inset 0 0 0 1px #35404d; }
+html[data-theme="dark"] .study-main .study-flow-node { background: #222e3b; border-color: #52616e; }
+html[data-theme="dark"] .study-main .study-flow-node--own { color: #fff; background: #2858ff; border-color: #8da7ff; }
+html[data-theme="dark"] .study-main .study-flow-lane + .study-flow-lane { border-color: #465261; }
+html[data-theme="dark"] .study-main .study-next-arrow { color: #fff; background: #2858ff; }
+html[data-theme="dark"] .study-main .study-next-browser { box-shadow: 0 10px 23px #0005; }
+html[data-theme="dark"] .study-main .study-next-project:is(:hover, :focus-visible) { background: #1a222d; border-color: #8da7ff; }
+
+/* A darker final chapter separates contact from the page above. */
+html[data-theme="dark"] .direction-contact { color: #f0f2ee; background: #0b0f15; }
+html[data-theme="dark"] .direction-contact-top { color: #b1bac5; }
+html[data-theme="dark"] .direction-contact h2 span { color: #a4afbb; }
+html[data-theme="dark"] .direction-mail-circle { border-color: #596778; }
+html[data-theme="dark"] .direction-mail-circle:hover { background: #2858ff; border-color: #2858ff; }
+html[data-theme="dark"] .direction-email::after { background: #8da7ff; }
+html[data-theme="dark"] .direction-footer { color: #b1bac5; border-color: #35404d; }
+
+@media (max-width: 760px) {
+  .studio-header-actions { margin-left: auto; gap: 9px; }
+  .studio-chrome-header .studio-header-actions .studio-chrome-contact-button { margin-left: 0; }
+  html[data-theme="dark"] .studio-chrome-header .studio-mobile-nav:not([hidden]) { color: #f0f2ee; background: #1a222d; border-color: #465261; box-shadow: 0 14px 30px #0006; }
+  html[data-theme="dark"] .studio-chrome-header .studio-mobile-nav a + a { border-color: #35404d; }
+  html[data-theme="dark"] .studio-chrome-header .studio-mobile-nav a:is(:hover, :focus-visible) { color: #a9beff; }
+}
+@media (max-width: 380px) {
+  .studio-chrome-header { gap: 8px; }
+  .studio-header-actions { gap: 8px; }
+  .studio-chrome-header .studio-menu-toggle { width: 44px; padding: 0; }
+  .studio-chrome-header .studio-menu-toggle span { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .studio-chrome-header .theme-toggle { transition: none; }
+}

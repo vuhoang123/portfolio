@@ -1,0 +1,54 @@
+.tech-label { display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; }
+.tech-icon { display: block; flex: none; object-fit: contain; transition: transform 250ms var(--direction-ease, ease); }
+.tech-label:hover .tech-icon { transform: translateY(-2px); }
+.direction-hero-stack { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; }
+.direction-hero-stack .tech-label { gap: 6px; }
+.direction-project-stack { display: flex; flex-wrap: wrap; justify-content: end; gap: 7px; flex: none; }
+.direction-project-stack .tech-label { padding: 4px 8px; border: 1px solid #d4dacf; border-radius: 4px; color: #52604c; font-size: 12px; line-height: 1.5; }
+.direction-capability-stack { display: flex; flex-wrap: wrap; gap: 10px 18px; margin-top: 19px; color: #eff3ff; font-size: 14px; line-height: 1.65; }
+.direction-about .tech-icon { box-sizing: content-box; padding: 4px; border-radius: 4px; background: #fff; }
+.direction-career-stack li { display: inline-flex; align-items: center; gap: 8px; transition: border-color 220ms, color 220ms; }
+.direction-career-stack li:hover { color: #244bce; border-color: #9aaee8; }
+.direction-career-stack li:hover .tech-icon { transform: translateY(-2px); }
+.study-main .study-stack { gap: 8px; }
+.study-main .study-stack > .tech-label { padding: 4px 8px; border: 1px solid var(--study-line); border-radius: 4px; gap: 7px; }
+.tech-marquee { margin-top: 44px; padding-top: 23px; border-top: 1px solid #9cb0ff; }
+.tech-marquee-heading { display: flex; justify-content: space-between; align-items: center; gap: 20px; }
+.tech-marquee-heading h3 { font-size: 18px; font-weight: 500; letter-spacing: -.025em; line-height: 1.4; }
+.tech-marquee:focus-visible { outline: 2px solid white; outline-offset: 8px; }
+.tech-marquee-viewport { overflow: hidden; margin-top: 22px; padding-block: 9px; mask-image: linear-gradient(to right, transparent, black 3%, black 97%, transparent); }
+.tech-marquee-track { display: flex; width: max-content; animation: toolkit-travel 64s linear infinite; animation-play-state: paused; }
+.tech-marquee[data-running="true"] .tech-marquee-track { animation-play-state: running; will-change: transform; }
+.tech-marquee:focus-visible .tech-marquee-track { animation-play-state: paused; }
+@media (hover: hover) and (pointer: fine) {
+  .tech-marquee:hover .tech-marquee-track { animation-play-state: paused; }
+}
+.direction-page .tech-marquee-group { display: flex; flex: none; align-items: center; gap: 44px; margin: 0; padding: 0 44px 0 0; list-style: none; }
+.tech-marquee-group .tech-label { gap: 13px; font-size: 23px; font-weight: 500; line-height: 1.4; letter-spacing: -.03em; }
+.tech-marquee-group .tech-icon { padding: 7px; border-radius: 6px; }
+@keyframes toolkit-travel { to { transform: translateX(-50%); } }
+@media (max-width: 1100px) {
+  .direction-project-stack { justify-content: start; margin-top: 12px; }
+}
+@media (max-width: 760px) {
+  .direction-hero-stack { gap: 8px 10px; }
+  .direction-hero-stack .tech-icon { width: 16px; height: 16px; }
+  .direction-project-name { display: block; }
+  .direction-project-stack { margin-top: 12px; }
+  .direction-capability-stack { font-size: 13px; gap: 9px 15px; }
+  .tech-marquee { margin-top: 32px; padding-top: 18px; }
+  .tech-marquee-heading h3 { font-size: 17px; }
+  .tech-marquee-viewport { margin-top: 17px; mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent); }
+  .direction-page .tech-marquee-group { gap: 30px; padding-right: 30px; }
+  .tech-marquee-group .tech-label { font-size: 20px; gap: 11px; }
+  .tech-marquee-group .tech-icon { width: 27px; height: 27px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tech-icon { transition: none; }
+  .tech-label:hover .tech-icon, .direction-career-stack li:hover .tech-icon { transform: none; }
+  .tech-marquee-viewport { overflow: visible; mask-image: none; }
+  .tech-marquee-track { display: block; width: auto; animation: none; transform: none; }
+  .direction-page .tech-marquee-group { flex-wrap: wrap; gap: 18px 27px; padding-right: 0; }
+  .tech-marquee-group[aria-hidden="true"] { display: none; }
+  .tech-marquee-group .tech-label { font-size: 18px; }
+}

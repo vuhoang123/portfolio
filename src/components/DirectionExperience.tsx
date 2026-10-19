@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
+import TechIcon from "@/components/TechIcon";
 import { additionalWork, experiences, projects } from "@/lib/projects";
 import "../app/design-study/experience.css";
 
@@ -84,7 +85,7 @@ export default function DirectionExperience() {
                   <div className="direction-career-stack-block">
                     <p className="direction-career-detail-label">Featured project stack</p>
                     <ul className="direction-career-stack" aria-label="Featured project technologies">
-                      {stack.map((technology) => <li key={technology}>{technology}</li>)}
+                      {stack.map((technology) => <li key={technology}><TechIcon name={technology} size={16} />{technology}</li>)}
                     </ul>
                   </div>
 
@@ -138,7 +139,9 @@ export default function DirectionExperience() {
                     </Link>
                     <figcaption className="direction-career-preview-caption">
                       <strong>{preview.title}</strong>
-                      <span>{preview.scopeNote}</span>
+                      <span>{isMidota
+                        ? "Public product introduction. My frontend work was inside the application."
+                        : "Public website preview. My main work was the admin system."}</span>
                     </figcaption>
                   </figure>
                 )}

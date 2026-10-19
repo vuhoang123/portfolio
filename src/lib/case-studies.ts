@@ -1,12 +1,17 @@
 type ScopeModule = { title: string; body: string };
 type FlowStep = { title: string; body: string; scope: string; own?: boolean };
 type FlowLane = { title: string; inputs: FlowStep[]; destination: FlowStep };
+type ImplementationFocus = {
+  title: string;
+  steps: { label: string; body: string }[];
+};
 
 export type CaseStudyPresentation = {
   depth: "module" | "summary";
   scopeHeading: string;
   scopeIntro: string;
   modules: ScopeModule[];
+  implementation?: ImplementationFocus;
   flowHeading: string;
   flowIntro: string;
   flowNote: string;
@@ -20,14 +25,20 @@ export type CaseStudyPresentation = {
 export const caseStudies: Record<string, CaseStudyPresentation> = {
   evisa: {
     depth: "module",
-    scopeHeading: "The administration behind the application.",
-    scopeIntro: "My largest module was order management. I also built the tools that let administrators configure public website content.",
-    modules: [
-      { title: "Project & database foundation", body: "Set up the project and built its database as part of my full-stack responsibility." },
-    ],
+    scopeHeading: "From a customer form to an admin workflow.",
+    scopeIntro: "Order management was my largest module in this Next.js and Laravel project. My full-stack scope also covered the database, project setup and editable website content.",
+    modules: [],
+    implementation: {
+      title: "The information behind an order.",
+      steps: [
+        { label: "The requirement", body: "The information a customer enters in the application form also needs a place inside the admin system, where the team manages orders." },
+        { label: "What I built", body: "I set up the project, built the database and developed the order-management module around those customer submissions. The work connects information collected on the public website with the administration behind it." },
+        { label: "Beyond orders", body: "I also built administration for blogs, pricing, FAQs and other public content. Administrators configure that content in the admin system, and the public pages display it." },
+      ],
+    },
     flowHeading: "Two workflows, connected to the website.",
-    flowIntro: "Orders and website content each have a dedicated administration workflow.",
-    flowNote: "Workflow illustration based on my confirmed scope. It shows the relationship between product modules, rather than the production admin interface.",
+    flowIntro: "Two sides of the same product: customer information coming in, and website content going out.",
+    flowNote: "Module workflow illustration, rather than a screenshot of the production admin interface.",
     lanes: [
       { title: "Customer orders", inputs: [
         { title: "Application information", body: "Information customers submit through public forms.", scope: "Public website" },
@@ -36,7 +47,7 @@ export const caseStudies: Record<string, CaseStudyPresentation> = {
         { title: "Content administration", body: "Manage blogs, pricing, FAQs and configurable content.", scope: "My contribution", own: true },
       ], destination: { title: "Public pages", body: "Display the content configured by administrators.", scope: "Public website" } },
     ],
-    boundary: "The public website below provides product context. The administration, database and project setup were my main responsibility within the team-built product.",
+    boundary: "This preview shows the customer-facing website. My main work was the administration behind it, within the team-built product.",
   },
   skyservice: {
     depth: "summary",
@@ -48,19 +59,24 @@ export const caseStudies: Record<string, CaseStudyPresentation> = {
     flowNote: "Public customer journey, shown for product context.",
     lanes: [],
     journey: ["Explore services", "Enter trip details", "Booking or enquiry"],
-    boundary: "This was a team-built product. My scope covered substantial full-stack participation; specific module ownership is not presented here.",
+    boundary: "Substantial full-stack contribution within the development team.",
   },
   valqua: {
     depth: "module",
-    scopeHeading: "Vue interfaces for reporting at work.",
-    scopeIntro: "I handled selected frontend modules for daily equipment reports and flange reporting, using Vue 2 and Vue 3.",
-    modules: [
-      { title: "Reusable frontend components", body: "Built shared Vue components used in the reporting interfaces." },
-      { title: "Application integration", body: "Connected the frontend modules with the existing Ruby on Rails-backed application." },
-    ],
+    scopeHeading: "A daily report, with more than typed input.",
+    scopeIntro: "I developed the daily-report and flange-report frontend modules using Vue 2 and Vue 3, within a Ruby on Rails-backed application.",
+    modules: [],
+    implementation: {
+      title: "Readings, images and a report.",
+      steps: [
+        { label: "The requirement", body: "Daily reporting brings together machine parameters, report photos and values read from captured images. The interface needs to support each kind of input as part of the reporting workflow." },
+        { label: "What I built", body: "I implemented the Vue interfaces for entering machine parameters, capturing report photos and working with OCR-derived values. My responsibility was the frontend workflow and its integration with the application." },
+        { label: "A separate reporting module", body: "I also developed the flange-report interface for recording flange parameters. It has its own reporting workflow alongside the daily-report module." },
+      ],
+    },
     flowHeading: "Measurements and images, brought into reports.",
-    flowIntro: "The daily-report module combines entered readings, report photos and OCR-assisted frontend input. Flange reports have their own interface.",
-    flowNote: "Workflow illustration based on the selected frontend modules I developed. OCR-derived values and the Rails backend are application context; my scope was the interfaces and their integration.",
+    flowIntro: "The daily-report and flange-report modules support different kinds of reporting input.",
+    flowNote: "Frontend module illustration. OCR processing and the Rails backend are application context; my scope was the interfaces and their integration.",
     lanes: [
       { title: "Daily equipment reports", inputs: [
         { title: "Readings & report photos", body: "Equipment values and photos entered or captured through the reporting interfaces.", scope: "Frontend scope", own: true },
@@ -70,7 +86,7 @@ export const caseStudies: Record<string, CaseStudyPresentation> = {
         { title: "Flange parameters", body: "Parameters entered for flange reporting.", scope: "Reporting input" },
       ], destination: { title: "Flange-report interfaces", body: "A dedicated frontend workflow for recording the required parameters.", scope: "Frontend scope", own: true } },
     ],
-    boundary: "My role covered selected Vue frontend modules. The website below introduces VALQUA SPM; it is separate from the reporting application I worked on.",
+    boundary: "The website below introduces VALQUA SPM. My work was inside the reporting application, whose internal screens are separate from this public preview.",
   },
   offshore: {
     depth: "summary",

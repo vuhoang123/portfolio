@@ -3,9 +3,10 @@ import type { CSSProperties } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowDown, ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import DirectionMotion from "@/components/DirectionMotion";
 import { StudioFooter, StudioHeader } from "@/components/StudioChrome";
+import { TechLabel } from "@/components/TechIcon";
 import { caseStudies, type CaseStudyPresentation } from "@/lib/case-studies";
 import { getProjectBySlug, projects, type Project } from "@/lib/projects";
 
@@ -35,13 +36,6 @@ export async function generateMetadata({ params }: WorkPageProps): Promise<Metad
   };
 }
 
-const sections = [
-  { id: "overview", label: "Overview" },
-  { id: "scope", label: "My scope" },
-  { id: "flow", label: "Product flow" },
-  { id: "delivered", label: "Delivered" },
-];
-
 function PublicPreview({ project, secondary = false }: { project: Project; secondary?: boolean }) {
   return (
     <figure className={"study-preview" + (secondary ? " study-preview--context" : "")}>
@@ -65,10 +59,21 @@ function PublicPreview({ project, secondary = false }: { project: Project; secon
         </div>
       </div>
       <figcaption className="study-preview-caption">
-        <span className="study-preview-label">
-          {project.slug === "valqua" ? "Public product introduction" : "Public website"}
-        </span>
-        {!secondary && <p>{project.scopeNote}</p>}
+        <div className="study-preview-caption-heading">
+          <span className="study-preview-label">
+            {project.slug === "valqua" ? "Public product introduction" : "Public website"}
+          </span>
+          <a
+            href={project.externalUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="study-public-link"
+            aria-label={"View " + project.title + " public website (opens in a new tab)"}
+          >
+            Visit public website <ArrowUpRight size={17} aria-hidden="true" />
+          </a>
+        </div>
+        {!secondary && project.scopeNote && <p>{project.scopeNote}</p>}
       </figcaption>
     </figure>
   );
@@ -113,6 +118,12 @@ export default async function WorkPage({ params }: WorkPageProps) {
   if (!project || !presentation) notFound();
 
   const moduleStudy = presentation.depth === "module";
+  const sections = [
+    { id: "overview", label: "Overview" },
+    { id: "scope", label: "My contribution" },
+    { id: "flow", label: "Product flow" },
+    { id: "context", label: "Public context" },
+  ];
   const currentIndex = projects.findIndex((item) => item.slug === project.slug);
   const nextProject = projects[(currentIndex + 1) % projects.length];
 
@@ -135,15 +146,12 @@ export default async function WorkPage({ params }: WorkPageProps) {
               <p className="study-headline">{project.headline}</p>
               <p className="study-description">{project.context}</p>
               <a
-                href={project.externalUrl}
-                target="_blank"
-                rel="noopener noreferrer"
+                href="#scope"
                 className="study-visit"
                 data-magnetic
-                aria-label={"View " + project.title + " public website (opens in a new tab)"}
               >
                 <span data-magnetic-content>
-                  View public website <ArrowUpRight size={19} aria-hidden="true" />
+                  Explore my contribution <ArrowDown size={19} aria-hidden="true" />
                 </span>
               </a>
             </header>
@@ -152,11 +160,10 @@ export default async function WorkPage({ params }: WorkPageProps) {
               <div><dt>Company</dt><dd>{project.company}</dd></div>
               <div>
                 <dt>Project stack</dt>
-                <dd className="study-stack">{project.stack.map((tech) => <span key={tech}>{tech}</span>)}</dd>
+                <dd className="study-stack">{project.stack.map((tech) => <TechLabel key={tech} name={tech} iconSize={16} />)}</dd>
               </div>
               <div><dt>Context</dt><dd>{project.year}</dd></div>
             </dl>
-            {!moduleStudy && <PublicPreview project={project} />}
           </div>
 
           <div className="study-layout">
@@ -177,6 +184,22 @@ export default async function WorkPage({ params }: WorkPageProps) {
                   <h2 id="scope-heading">{presentation.scopeHeading}</h2>
                 </div>
                 <p className="study-section-lead">{presentation.scopeIntro}</p>
+                {presentation.implementation && (
+                  <div className="study-implementation" data-motion-reveal>
+                    <div className="study-implementation-heading">
+                      <span className="study-implementation-label">Implementation focus</span>
+                      <h3>{presentation.implementation.title}</h3>
+                    </div>
+                    <dl className="study-implementation-steps">
+                      {presentation.implementation.steps.map((step) => (
+                        <div key={step.label}>
+                          <dt>{step.label}</dt>
+                          <dd>{step.body}</dd>
+                        </div>
+                      ))}
+                    </dl>
+                  </div>
+                )}
                 {presentation.modules.length > 0 && (
                   <div className="study-modules">
                     {presentation.modules.map((module) => (
@@ -206,18 +229,12 @@ export default async function WorkPage({ params }: WorkPageProps) {
                 )}
               </section>
 
-              <section id="delivered" className="study-section" aria-labelledby="delivered-heading">
+              <section id="context" className="study-section" aria-labelledby="context-heading">
                 <div className="study-section-heading" data-motion-reveal>
-                  <h2 id="delivered-heading">The contribution, in practice.</h2>
+                  <h2 id="context-heading">The public side of the product.</h2>
                 </div>
-                <div className="study-delivered" data-motion-reveal><p>{project.outcome}</p></div>
-                {moduleStudy && (
-                  <div className="study-public-context">
-                    <p className="study-context-note">{presentation.boundary}</p>
-                    <PublicPreview project={project} secondary />
-                  </div>
-                )}
-                {!moduleStudy && <p className="study-context-note">{presentation.boundary}</p>}
+                <p className="study-section-lead">{presentation.boundary}</p>
+                <PublicPreview project={project} secondary />
               </section>
             </div>
           </div>

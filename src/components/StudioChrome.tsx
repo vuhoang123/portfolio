@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 import { useEffect, useId, useRef, useState } from "react";
+import ThemeToggle from "./ThemeToggle";
 
 const navigation = [
   { href: "/#work", label: "Work" },
@@ -70,20 +71,23 @@ export function StudioHeader() {
             <Link href={item.href} key={item.href} onClick={close}>{item.label}</Link>
           ))}
         </nav>
-        <Link href="/#contact" className="direction-contact-button studio-chrome-contact-button" data-magnetic onClick={close}>
-          <span data-magnetic-content>Let’s talk <ArrowUpRight size={17} aria-hidden="true" /></span>
-        </Link>
-        <button
-          ref={toggle}
-          type="button"
-          className="studio-menu-toggle"
-          aria-label={open ? "Close navigation" : "Open navigation"}
-          aria-expanded={open}
-          aria-controls={menuId}
-          onClick={() => setOpen((value) => !value)}
-        >
-          {open ? <X size={19} aria-hidden="true" /> : <Menu size={19} aria-hidden="true" />}<span>Menu</span>
-        </button>
+        <div className="studio-header-actions">
+          <Link href="/#contact" className="direction-contact-button studio-chrome-contact-button" data-magnetic onClick={close}>
+            <span data-magnetic-content>Let’s talk <ArrowUpRight size={17} aria-hidden="true" /></span>
+          </Link>
+          <ThemeToggle />
+          <button
+            ref={toggle}
+            type="button"
+            className="studio-menu-toggle"
+            aria-label={open ? "Close navigation" : "Open navigation"}
+            aria-expanded={open}
+            aria-controls={menuId}
+            onClick={() => setOpen((value) => !value)}
+          >
+            {open ? <X size={19} aria-hidden="true" /> : <Menu size={19} aria-hidden="true" />}<span>Menu</span>
+          </button>
+        </div>
         <nav ref={mobileNavigation} id={menuId} className="studio-mobile-nav" aria-label="Mobile navigation" hidden={!open}>
           {navigation.map((item) => (
             <Link href={item.href} key={item.href} onClick={close}>{item.label}<ArrowUpRight size={18} aria-hidden="true" /></Link>

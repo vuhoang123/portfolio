@@ -40,12 +40,19 @@ The build also runs `scripts/normalize-static-segments.mjs`. It adds the dot-sep
 - `src/app/home.css`: spatial hero and interactive artwork controls.
 - `src/lib/case-studies.ts`, `src/app/case-study.css`: module cards and illustrative product workflows for case studies.
 - `src/app/readability.css`: shared type sizes and section spacing.
-- `src/components/HeroExperience.tsx`, `src/components/KineticScene.tsx`: accessible hero controls and the instanced kinetic sculpture.
+- `src/components/HeroExperience.tsx`, `src/components/KineticScene.tsx`: accessible hero interaction and the full-stack application scene.
 - `src/app/layout.tsx`: document metadata.
+- `src/components/ThemeProvider.tsx`, `src/components/ThemeToggle.tsx`, `src/lib/theme.ts`, `src/app/theme.css`: shared light/dark theme, navigation toggle, and pre-paint preference initialization.
 
-The hero is an independent kinetic signature: 474 beveled cubes form VŨ, an orbital ribbon, and a rolling terrain. Pointer movement bends the blocks; clicking the canvas or activating Send pulse creates a ripple. It uses procedural geometry without external artwork or network requests.
+The hero uses one set of 474 rounded modules for both VŨ and the browser/API/database. The same opaque instances interpolate position, scale, rotation and color into the application; the shell is never swapped or crossfaded. Text and connections appear after assembly. Replay reverses those modules into the signature before assembling the app again.
 
-The scene uses a demand render loop and pauses ambient motion when offscreen, when the tab is hidden, or when Pause is selected. Form controls and the Transformation slider work with the keyboard. It follows scrolling until a manual selection takes over. Reduced-motion preferences disable ambient motion, scroll-follow, pointer effects, and pulses; form controls select static poses. Browsers without WebGL receive a CSS signature preview with disabled interactive controls.
+The name field is editable directly inside the 3D browser. Send request runs an explicit typing, sending, validation, database write and response sequence, then preserves the saved result. Clicking or hovering a component highlights it; clicking API or Data opens an inspector within the banner. There is no separate form beneath the model. Everything is a local browser simulation, with no network requests or external artwork.
+
+Focus the stage and press Enter or Space to send, R to replay the module transition, 1/2/3 to inspect Interface/API/Data, or Escape to reset. Escape closes an open inspector first. Reset clears records and cancels an active request. The demand loop pauses when the whole interactive widget is offscreen or the tab is hidden. Reduced motion keeps the app static and completes submissions instantly. Browsers without WebGL2 receive a CSS illustration. The scene does not link to projects or drive page navigation. `src/app/application-scene.css` styles its input, inspector, focus treatment and fallback; `src/lib/application-scene.ts` shares phase and component types.
+
+Technology badges use local original-color Devicon SVGs in `public/icons/tech/`. `sources.json` pins their upstream commit and records ecosystem aliases; the upstream license is included. `TechIcon.tsx` shares the marks across hero, project, experience and case-study labels. The About toolkit marquee uses two equal-width groups for a seamless CSS loop, hides its duplicate from assistive technology, and stops on hover, keyboard focus, offscreen visibility, hidden tabs and reduced-motion preferences. Reduced motion presents one static wrapping list. There are no visible Pause/Play buttons.
+
+The sun/moon toggle in the shared header switches the entire portfolio, including case studies and the Three.js materials. First visits default to dark; explicit choices persist in local storage and sync across tabs. An inline head script applies the preference before content paints, preserving the static export. The toggle continues working in memory if browser storage is unavailable. Original brand colors and public website screenshots are preserved in both themes.
 
 Public project previews in `public/images/` are authentic website captures; `sources.json` records their source and scope. VALQUA's image shows the public product introduction, while the case study describes selected application modules. Project contribution text distinguishes personal work from the full team's product.
 

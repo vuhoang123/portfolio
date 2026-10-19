@@ -36,8 +36,7 @@
 .study-main .study-meta dt { margin-bottom: 8px; font-size: 13px; line-height: 1.5; color: var(--study-muted); }
 .study-main .study-meta dd { margin: 0; font-size: 17px; font-weight: 500; line-height: 1.55; }
 .study-main .study-stack { display: flex; flex-wrap: wrap; gap: 5px 8px; }
-.study-main .study-stack span { font-size: 15px; font-weight: 450; line-height: 1.5; }
-.study-main .study-stack span:not(:last-child)::after { content: " /"; color: var(--study-muted); }
+.study-main .study-stack > .tech-label { font-size: 15px; font-weight: 450; line-height: 1.5; }
 
 .study-main .study-preview { margin-block: 9px 27px; }
 .study-main .study-preview-stage { position: relative; isolation: isolate; padding: 36px 48px; background: #e5e9e0; border-radius: 4px; }
@@ -51,6 +50,10 @@
 .study-main .study-browser img { display: block; width: 100%; height: auto; }
 .study-main .study-preview-caption { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 30px; padding-block: 19px 21px; }
 .study-main .study-preview-label { color: var(--study-muted); padding-top: 3px; font-size: 13px; line-height: 1.65; }
+.study-main .study-preview-caption-heading { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 24px; }
+.study-main .study-public-link { display: inline-flex; align-items: center; gap: 9px; padding-block: 8px; color: var(--study-cobalt); font-size: 14px; line-height: 1.6; }
+.study-main .study-public-link svg { transition: transform 250ms var(--study-ease); }
+.study-main .study-public-link:is(:hover, :focus-visible) svg { transform: translate(3px, -3px); }
 .study-main .study-preview-caption p { max-width: 880px; font-size: 17px; line-height: 1.65; color: var(--study-muted); }
 .study-main .study-preview--context { margin-block: 23px 0; }
 .study-main .study-preview--context .study-preview-stage { padding: 24px 30px; }
@@ -67,6 +70,12 @@
 .study-main .study-section-heading { margin-bottom: 20px; }
 .study-main .study-section h2 { margin: 0; max-width: 830px; font-size: clamp(34px, 3.5vw, 49px); font-weight: 500; line-height: 1.15; letter-spacing: -.045em; text-wrap: balance; }
 .study-main .study-section-lead { max-width: 870px; color: var(--study-muted); font-size: 18px; line-height: 1.7; }
+.study-main .study-implementation { display: grid; grid-template-columns: minmax(180px, .72fr) minmax(0, 1.55fr); gap: 35px; margin-top: 31px; padding-block: 29px 0; border-top: 1px solid var(--study-line); }
+.study-main .study-implementation-label { display: block; margin-bottom: 14px; color: var(--study-cobalt); font-size: 13px; line-height: 1.6; }
+.study-main .study-implementation-heading h3 { margin: 0; max-width: 260px; font-size: 28px; font-weight: 500; line-height: 1.2; letter-spacing: -.035em; text-wrap: balance; }
+.study-main .study-implementation-steps > div + div { margin-top: 23px; padding-top: 23px; border-top: 1px solid var(--study-line); }
+.study-main .study-implementation-steps dt { display: flex; align-items: baseline; gap: 12px; margin-bottom: 10px; color: var(--study-ink); font-size: 16px; font-weight: 550; line-height: 1.5; }
+.study-main .study-implementation-steps dd { margin: 0; color: var(--study-muted); font-size: 17px; line-height: 1.7; }
 .study-main .study-modules { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px; margin-top: 27px; }
 .study-main .study-module { position: relative; padding-block: 21px 0; border-top: 1px solid var(--study-line); }
 .study-main .study-module:only-child { grid-column: 1 / -1; max-width: 780px; }
@@ -157,7 +166,7 @@
   .study-main .study-meta { padding-block: 19px 23px; gap: 22px; }
   .study-main .study-meta dt { font-size: 13px; margin-bottom: 7px; }
   .study-main .study-meta dd { font-size: 16px; }
-  .study-main .study-stack span { font-size: 14px; }
+  .study-main .study-stack > .tech-label { font-size: 14px; }
   .study-main .study-preview-stage, .study-main .study-preview--context .study-preview-stage { padding: 20px; }
   .study-main .study-browser-bar { height: 34px; padding-inline: 9px; gap: 9px; font-size: 12px; }
   .study-main .study-browser-public { display: none; }
@@ -171,6 +180,10 @@
   .study-main .study-section-heading { margin-bottom: 19px; }
   .study-main .study-section h2 { font-size: 34px; }
   .study-main .study-section-lead { font-size: 17px; }
+  .study-main .study-implementation { grid-template-columns: 1fr; gap: 25px; margin-top: 26px; padding-top: 25px; }
+  .study-main .study-implementation-heading h3 { max-width: 360px; font-size: 27px; }
+  .study-main .study-implementation-label { margin-bottom: 11px; }
+  .study-main .study-implementation-steps > div + div { margin-top: 20px; padding-top: 20px; }
   .study-main .study-modules { grid-template-columns: 1fr; gap: 22px; margin-top: 23px; }
   .study-main .study-module { padding-top: 18px; }
   .study-main .study-module h3 { font-size: 24px; }
@@ -208,7 +221,7 @@
   .study-main .study-next-project { padding: 19px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .study-main .study-back, .study-main .study-back svg, .study-main .study-return, .study-main .study-return svg, .study-main .study-visit, .study-main .study-preview-glow, .study-main .study-browser, .study-main .study-module::before, .study-main .study-module h3, .study-main .study-next-project, .study-main .study-next-project strong, .study-main .study-next-arrow, .study-main .study-next-arrow svg, .study-main .study-next-browser { transition: none; }
-  .study-main .study-back:is(:hover, :focus-visible) svg, .study-main .study-return:is(:hover, :focus-visible) svg, .study-main .study-next-project:is(:hover, :focus-visible) .study-next-arrow svg { transform: none; }
+  .study-main .study-back, .study-main .study-back svg, .study-main .study-return, .study-main .study-return svg, .study-main .study-visit, .study-main .study-public-link svg, .study-main .study-preview-glow, .study-main .study-browser, .study-main .study-module::before, .study-main .study-module h3, .study-main .study-next-project, .study-main .study-next-project strong, .study-main .study-next-arrow, .study-main .study-next-arrow svg, .study-main .study-next-browser { transition: none; }
+  .study-main .study-back:is(:hover, :focus-visible) svg, .study-main .study-return:is(:hover, :focus-visible) svg, .study-main .study-public-link:is(:hover, :focus-visible) svg, .study-main .study-next-project:is(:hover, :focus-visible) .study-next-arrow svg { transform: none; }
   .study-main .study-preview-stage:hover .study-browser, .study-main .study-next-project:is(:hover, :focus-visible) .study-next-browser { scale: 1; }
 }

@@ -5,6 +5,8 @@ import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import HeroExperience from "@/components/HeroExperience";
 import DirectionExperience from "@/components/DirectionExperience";
 import DirectionMotion from "@/components/DirectionMotion";
+import { TechLabel } from "@/components/TechIcon";
+import TechMarquee from "@/components/TechMarquee";
 import { StudioHeader, StudioFooter } from "@/components/StudioChrome";
 import { additionalWork, projects } from "@/lib/projects";
 
@@ -16,8 +18,8 @@ const projectScopes: Record<string, string> = {
 };
 
 const tools = [
-  { title: "Interfaces", stack: "React / Next.js / Vue 2 & 3", description: "Customer-facing websites and practical reporting interfaces." },
-  { title: "Operations", stack: "PHP / Laravel / MySQL", description: "Admin systems, order management, and configurable public content." },
+  { title: "Interfaces", stack: ["React", "Next.js", "Vue 2 / 3"], description: "Customer-facing websites and practical reporting interfaces." },
+  { title: "Operations", stack: ["PHP", "Laravel", "MySQL"], description: "Admin systems, order management, and configurable public content." },
 ];
 
 export default function StudioHome({ preview = false }: { preview?: boolean }) {
@@ -39,7 +41,7 @@ export default function StudioHome({ preview = false }: { preview?: boolean }) {
         </div>
         <div className="direction-hero-composition">
           <div className="direction-hero-copy">
-            <span className="direction-hero-stack">React / Next.js / Vue / Laravel</span>
+            <div className="direction-hero-stack">{["React", "Next.js", "Vue", "Laravel"].map((name) => <TechLabel key={name} name={name} iconSize={16} />)}</div>
             <h1 id="direction-hero-title" aria-label="Beyond the interface.">Beyond <span className="direction-outline">the</span><br /><span className="direction-blue">interface.</span></h1>
             <p>I build the interfaces people use<br />and the systems teams run.</p>
             <a href="#work" className="direction-round-link" data-magnetic>
@@ -68,7 +70,7 @@ export default function StudioHome({ preview = false }: { preview?: boolean }) {
                   </div>
                   <span className="direction-view-badge" aria-hidden="true">View case<ArrowUpRight size={24} /></span>
                 </div>
-                <div className="direction-project-name"><h3>{project.title}</h3><span>{project.stack.slice(0, 2).join(" / ")}</span></div>
+                <div className="direction-project-name"><h3>{project.title}</h3><div className="direction-project-stack">{project.stack.slice(0, 2).map((name) => <TechLabel key={name} name={name} iconSize={14} />)}</div></div>
                 <p className="direction-project-scope">{projectScopes[project.slug]}</p>
               </Link>
               <p className="direction-public-note">{project.slug === "valqua" ? "Public product introduction; my work was inside the application." : project.slug === "evisa" ? "Public website preview; my main contribution was the admin system." : `${project.role} · ${project.company}`}</p>
@@ -89,10 +91,11 @@ export default function StudioHome({ preview = false }: { preview?: boolean }) {
           <div className="direction-capabilities">
             {tools.map((tool, index) => (
               <article key={tool.title} data-motion-reveal style={{ "--reveal-delay": `${index * 70}ms` } as CSSProperties}>
-                <h3>{tool.title}</h3><p>{tool.description}</p><small>{tool.stack}</small>
+                <h3>{tool.title}</h3><p>{tool.description}</p><div className="direction-capability-stack">{tool.stack.map((name) => <TechLabel key={name} name={name} iconSize={17} />)}</div>
               </article>
             ))}
           </div>
+          <TechMarquee />
           <div className="direction-education" data-motion-reveal>
             <div>
               <span className="direction-eyebrow">Education / 2019–2023</span>

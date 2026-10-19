@@ -1,4 +1,6 @@
 import type { Metadata, Viewport } from "next";
+import { ThemeProvider } from "@/components/ThemeProvider";
+import { DEFAULT_THEME, themeInitScript } from "@/lib/theme";
 import "@fontsource-variable/manrope";
 import "@fontsource/ibm-plex-mono/400.css";
 import "@fontsource/ibm-plex-mono/500.css";
@@ -9,6 +11,9 @@ import "./case-study.css";
 import "./studio.css";
 import "./studio-chrome.css";
 import "./design-study/motion.css";
+import "./technology.css";
+import "./theme.css";
+import "./application-scene.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL(
@@ -40,7 +45,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#f5f4ef",
+  themeColor: "#11161d",
 };
 
 export default function RootLayout({
@@ -49,8 +54,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" data-scroll-behavior="smooth">
-      <body>{children}</body>
+    <html lang="en" data-scroll-behavior="smooth" data-theme={DEFAULT_THEME} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+      </head>
+      <body><ThemeProvider>{children}</ThemeProvider></body>
     </html>
   );
 }

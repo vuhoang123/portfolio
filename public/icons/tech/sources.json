@@ -1,0 +1,107 @@
+{
+  "repository": "https://github.com/devicons/devicon",
+  "release": "v2.17.0",
+  "commit": "54cfe13ac10eaa1ef817a343ab0a9437eb3c2e08",
+  "catalog": "https://raw.githubusercontent.com/devicons/devicon/54cfe13ac10eaa1ef817a343ab0a9437eb3c2e08/devicon.json",
+  "licenseSource": "https://raw.githubusercontent.com/devicons/devicon/54cfe13ac10eaa1ef817a343ab0a9437eb3c2e08/LICENSE",
+  "note": "Original SVG files are stored unmodified and retain their upstream colors. Brand names and marks belong to their respective owners.",
+  "aliases": {
+    "Vuex": "Vue ecosystem mark (vuejs-original.svg), not a separate Vuex logo",
+    "SCSS": "Sass mark",
+    "Redux Toolkit": "Redux ecosystem mark",
+    "Vue 2 / 3": "Vue.js mark",
+    "WebSocket": "Lucide Cable, a protocol symbol rather than a brand logo"
+  },
+  "assets": [
+    {
+      "file": "react-original.svg",
+      "source": "https://raw.githubusercontent.com/devicons/devicon/54cfe13ac10eaa1ef817a343ab0a9437eb3c2e08/icons/react/react-original.svg",
+      "variant": "original",
+      "modified": false
+    },
+    {
+      "file": "nextjs-original.svg",
+      "source": "https://raw.githubusercontent.com/devicons/devicon/54cfe13ac10eaa1ef817a343ab0a9437eb3c2e08/icons/nextjs/nextjs-original.svg",
+      "variant": "original",
+      "modified": false
+    },
+    {
+      "file": "vuejs-original.svg",
+      "source": "https://raw.githubusercontent.com/devicons/devicon/54cfe13ac10eaa1ef817a343ab0a9437eb3c2e08/icons/vuejs/vuejs-original.svg",
+      "variant": "original",
+      "modified": false
+    },
+    {
+      "file": "javascript-original.svg",
+      "source": "https://raw.githubusercontent.com/devicons/devicon/54cfe13ac10eaa1ef817a343ab0a9437eb3c2e08/icons/javascript/javascript-original.svg",
+      "variant": "original",
+      "modified": false
+    },
+    {
+      "file": "typescript-original.svg",
+      "source": "https://raw.githubusercontent.com/devicons/devicon/54cfe13ac10eaa1ef817a343ab0a9437eb3c2e08/icons/typescript/typescript-original.svg",
+      "variant": "original",
+      "modified": false
+    },
+    {
+      "file": "php-original.svg",
+      "source": "https://raw.githubusercontent.com/devicons/devicon/54cfe13ac10eaa1ef817a343ab0a9437eb3c2e08/icons/php/php-original.svg",
+      "variant": "original",
+      "modified": false
+    },
+    {
+      "file": "laravel-original.svg",
+      "source": "https://raw.githubusercontent.com/devicons/devicon/54cfe13ac10eaa1ef817a343ab0a9437eb3c2e08/icons/laravel/laravel-original.svg",
+      "variant": "original",
+      "modified": false
+    },
+    {
+      "file": "mysql-original.svg",
+      "source": "https://raw.githubusercontent.com/devicons/devicon/54cfe13ac10eaa1ef817a343ab0a9437eb3c2e08/icons/mysql/mysql-original.svg",
+      "variant": "original",
+      "modified": false
+    },
+    {
+      "file": "bootstrap-original.svg",
+      "source": "https://raw.githubusercontent.com/devicons/devicon/54cfe13ac10eaa1ef817a343ab0a9437eb3c2e08/icons/bootstrap/bootstrap-original.svg",
+      "variant": "original",
+      "modified": false
+    },
+    {
+      "file": "redux-original.svg",
+      "source": "https://raw.githubusercontent.com/devicons/devicon/54cfe13ac10eaa1ef817a343ab0a9437eb3c2e08/icons/redux/redux-original.svg",
+      "variant": "original",
+      "modified": false
+    },
+    {
+      "file": "git-original.svg",
+      "source": "https://raw.githubusercontent.com/devicons/devicon/54cfe13ac10eaa1ef817a343ab0a9437eb3c2e08/icons/git/git-original.svg",
+      "variant": "original",
+      "modified": false
+    },
+    {
+      "file": "docker-original.svg",
+      "source": "https://raw.githubusercontent.com/devicons/devicon/54cfe13ac10eaa1ef817a343ab0a9437eb3c2e08/icons/docker/docker-original.svg",
+      "variant": "original",
+      "modified": false
+    },
+    {
+      "file": "postman-original.svg",
+      "source": "https://raw.githubusercontent.com/devicons/devicon/54cfe13ac10eaa1ef817a343ab0a9437eb3c2e08/icons/postman/postman-original.svg",
+      "variant": "original",
+      "modified": false
+    },
+    {
+      "file": "figma-original.svg",
+      "source": "https://raw.githubusercontent.com/devicons/devicon/54cfe13ac10eaa1ef817a343ab0a9437eb3c2e08/icons/figma/figma-original.svg",
+      "variant": "original",
+      "modified": false
+    },
+    {
+      "file": "sass-original.svg",
+      "source": "https://raw.githubusercontent.com/devicons/devicon/54cfe13ac10eaa1ef817a343ab0a9437eb3c2e08/icons/sass/sass-original.svg",
+      "variant": "original",
+      "modified": false
+    }
+  ]
+}
